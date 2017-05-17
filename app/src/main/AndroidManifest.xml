@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.tour.tourapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/BaseTheme"
+        tools:replace="icon">
+        <activity android:name=".mvp.ui.activity.MainTabActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="3e6a08bcb7489c734edc7cd74b988223" />
+
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity android:name=".mvp.ui.activity.MainActivity" />
+        <activity android:name=".mvp.ui.activity.ShopDetailActivity" />
+        <activity android:name=".mvp.ui.activity.ShopAroundActivity" />
+        <activity android:name=".mvp.ui.activity.GoodListActivity" />
+        <activity android:name=".mvp.ui.activity.GoodDetailActivity" />
+        <activity android:name=".mvp.ui.activity.SearchActivity" />
+        <activity android:name=".mvp.ui.activity.SearchResultActivity" />
+        <activity android:name=".mvp.ui.activity.LoginActivity" />
+        <activity android:name=".mvp.ui.activity.RegisterActivity"/>
+    </application>
+
+</manifest>
