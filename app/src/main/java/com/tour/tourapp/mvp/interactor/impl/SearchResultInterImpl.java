@@ -2,7 +2,7 @@ package com.tour.tourapp.mvp.interactor.impl;
 
 import com.socks.library.KLog;
 import com.tour.tourapp.api.RetrofitManager;
-import com.tour.tourapp.entity.RspShopBean;
+import com.tour.tourapp.entity.RspSearchBean;
 import com.tour.tourapp.mvp.interactor.SearchResultInter;
 import com.tour.tourapp.mvp.listener.RequestCallBack;
 import com.tour.tourapp.utils.TransformUtils;
@@ -18,18 +18,18 @@ import rx.Subscription;
  * @create_date 2017/5/3
  */
 
-public class SearchResultInterImpl implements SearchResultInter<RspShopBean> {
+public class SearchResultInterImpl implements SearchResultInter<RspSearchBean> {
 
     @Inject
     public SearchResultInterImpl() {
     }
 
     @Override
-    public Subscription loadNews(final RequestCallBack<RspShopBean> listener,String shopsName,String goodsName) {
+    public Subscription loadNews(final RequestCallBack<RspSearchBean> listener, String shopsName, String goodsName) {
 
         RetrofitManager.getInstance(1).searchGoodsOrShop(shopsName,goodsName)
-                .compose(TransformUtils.<RspShopBean>defaultSchedulers())
-                .subscribe(new Subscriber<RspShopBean>() {
+                .compose(TransformUtils.<RspSearchBean>defaultSchedulers())
+                .subscribe(new Subscriber<RspSearchBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -41,10 +41,10 @@ public class SearchResultInterImpl implements SearchResultInter<RspShopBean> {
                     }
 
                     @Override
-                    public void onNext(RspShopBean rspShopBean) {
+                    public void onNext(RspSearchBean rspSearchBean) {
 
-                        KLog.d("shop--->" + rspShopBean.toString());
-                        listener.success(rspShopBean);
+                        KLog.d("shop--->" + rspSearchBean.toString());
+                        listener.success(rspSearchBean);
                     }
                 });
         return null;

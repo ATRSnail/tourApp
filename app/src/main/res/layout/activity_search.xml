@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!--实现BaseActivity的通用顶部栏-->
+    <include layout="@layout/top_title_bar"  android:visibility="gone"/>
     <include layout="@layout/layout_toolbar_search" />
 
     <android.support.v4.widget.SwipeRefreshLayout

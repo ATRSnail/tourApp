@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -35,7 +34,7 @@ import com.tour.tourapp.entity.ClusterRender;
 import com.tour.tourapp.entity.GoodBean;
 import com.tour.tourapp.entity.RegionItem;
 import com.tour.tourapp.entity.RspGoodsBean;
-import com.tour.tourapp.entity.RspShopBean;
+import com.tour.tourapp.entity.RspSearchBean;
 import com.tour.tourapp.entity.ShopBean;
 import com.tour.tourapp.mvp.ui.activity.GoodDetailActivity;
 import com.tour.tourapp.mvp.ui.activity.GoodListActivity;
@@ -112,7 +111,7 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
         if (mAMap == null) {
             // 初始化地图
             mAMap = mMapView.getMap();
-            //        mAMap.setOnMapLoadedListener(this);
+//                    mAMap.setOnMapLoadedListener(this);
             // 设置定位监听
             mAMap.setLocationSource(this);
             // 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
@@ -158,17 +157,20 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
      */
     private AMapLocationClientOption getDefaultOption() {
         AMapLocationClientOption mOption = new AMapLocationClientOption();
+
+        //设置是否允许模拟位置,默认为false，不允许模拟位置
+        mOption.setMockEnable(true);
+
         mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
-        mOption.setGpsFirst(false);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
-        mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
-        // mOption.setInterval(2000);//可选，设置定位间隔。默认为2秒
+        mOption.setGpsFirst(true);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
+        mOption.setInterval(20000);//连续定位模式，设置定位间隔。默认为2秒
         mOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是true
-        mOption.setOnceLocation(true);//可选，设置是否单次定位。默认是false
-        mOption.setOnceLocationLatest(true);//可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
-        AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);//可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
-        mOption.setSensorEnable(false);//可选，设置是否使用传感器。默认是false
         mOption.setWifiScan(true); //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
+        mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
         mOption.setLocationCacheEnable(true); //可选，设置是否使用缓存定位，默认为true
+        AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);//可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
+
+
         return mOption;
     }
 
@@ -178,7 +180,7 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
     AMapLocationListener locationListener = new AMapLocationListener() {
         @Override
         public void onLocationChanged(AMapLocation amapLocation) {
-            //  Toast.makeText(MainActivity.this, amapLocation.toStr(), Toast.LENGTH_SHORT).show();
+            KLog.a(amapLocation.toString());
             if (amapLocation.getErrorCode() == 0) {
                 mapLoad(amapLocation.getLatitude(), amapLocation.getLongitude());
                 Log.d("amapLocation", amapLocation.toStr());
@@ -198,10 +200,6 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
      * @since 2.8.0
      */
     private void startLocation() {
-        //根据控件的选择，重新设置定位参数
-//        resetOption();
-//        // 设置定位参数
-//        locationClient.setLocationOption(locationOption);
         // 启动定位
         locationClient.startLocation();
     }
@@ -217,42 +215,27 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
         locationClient.stopLocation();
     }
 
-    // 根据控件的选择，重新设置定位参数
-    private void resetOption() {
-        // 设置是否需要显示地址信息
-        locationOption.setNeedAddress(true);
-        /**
-         * 设置是否优先返回GPS定位结果，如果30秒内GPS没有返回定位结果则进行网络定位
-         * 注意：只有在高精度模式下的单次定位有效，其他方式无效
-         */
-        locationOption.setGpsFirst(true);
-        // 设置是否开启缓存
-        locationOption.setLocationCacheEnable(true);
-        // 设置是否单次定位
-        locationOption.setOnceLocation(true);
-        //设置是否等待设备wifi刷新，如果设置为true,会自动变为单次定位，持续定位时不要使用
-        locationOption.setOnceLocationLatest(true);
-        //设置是否使用传感器
-        locationOption.setSensorEnable(true);
-        //设置是否开启wifi扫描，如果设置为false时同时会停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
-        String strInterval = "2000";
-        if (!TextUtils.isEmpty(strInterval)) {
-            try {
-                // 设置发送定位请求的时间间隔,最小值为1000，如果小于1000，按照1000算
-                locationOption.setInterval(Long.valueOf(strInterval));
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
-        }
+    @Override
+    public void onStop() {
+        super.onStop();
+        stopLocation();
+    }
 
-        String strTimeout = "10000";
-        if (!TextUtils.isEmpty(strTimeout)) {
-            try {
-                // 设置网络请求超时时间
-                locationOption.setHttpTimeOut(Long.valueOf(strTimeout));
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        destroyLocation();
+    }
+
+    private void destroyLocation() {
+        if (null != locationClient) {
+            /**
+             * 如果AMapLocationClient是在当前Activity实例化的，
+             * 在Activity的onDestroy中一定要执行AMapLocationClient的onDestroy
+             */
+            locationClient.onDestroy();
+            locationClient = null;
+            locationOption = null;
         }
     }
 
@@ -292,12 +275,12 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
                 .subscribe(new Subscriber<RspGoodsBean>() {
                     @Override
                     public void onCompleted() {
-
+                        KLog.d("onCompleted");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        KLog.e(e.toString());
                     }
 
                     @Override
@@ -326,8 +309,8 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
     private void initData(final double latitude, final double longitude) {
         KLog.d("shop--->" + latitude);
         RetrofitManager.getInstance(1).getShopsListObservable(latitude + "", longitude + "")
-                .compose(TransformUtils.<RspShopBean>defaultSchedulers())
-                .subscribe(new Subscriber<RspShopBean>() {
+                .compose(TransformUtils.<RspSearchBean>defaultSchedulers())
+                .subscribe(new Subscriber<RspSearchBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -339,12 +322,12 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
                     }
 
                     @Override
-                    public void onNext(RspShopBean rspShopBean) {
-                        shops = rspShopBean.getBody().getShops();
+                    public void onNext(RspSearchBean rspSearchBean) {
+                        shops = rspSearchBean.getBody().getShops();
                         if (shops == null)
                             shops = new ArrayList<>();
                         shops.add(0, new ShopBean(latitude + "", longitude + ""));
-                        KLog.d("shop--->" + rspShopBean.toString());
+                        KLog.d("shop--->" + rspSearchBean.toString());
                         addShopMaker(shops, latitude, longitude);
                     }
                 });

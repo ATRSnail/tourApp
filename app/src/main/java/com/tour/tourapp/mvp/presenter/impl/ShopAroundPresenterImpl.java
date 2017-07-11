@@ -2,7 +2,7 @@ package com.tour.tourapp.mvp.presenter.impl;
 
 import com.socks.library.KLog;
 import com.tour.tourapp.api.LoadNewsType;
-import com.tour.tourapp.entity.RspShopBean;
+import com.tour.tourapp.entity.RspSearchBean;
 import com.tour.tourapp.mvp.interactor.ShopAroundInter;
 import com.tour.tourapp.mvp.interactor.impl.ShopAroundInterImpl;
 import com.tour.tourapp.mvp.presenter.ShopAroundPresenter;
@@ -17,9 +17,9 @@ import javax.inject.Inject;
  * @create_date 2017/5/3
  */
 
-public class ShopAroundPresenterImpl extends BasePresenterImpl<ShopAroundView,RspShopBean> implements ShopAroundPresenter{
+public class ShopAroundPresenterImpl extends BasePresenterImpl<ShopAroundView,RspSearchBean> implements ShopAroundPresenter{
 
-    private ShopAroundInter<RspShopBean> mNewsInteractor;
+    private ShopAroundInter<RspSearchBean> mNewsInteractor;
     private int pageNum;
     private int numPerPage;
     private String latitude, longitude;
@@ -61,7 +61,7 @@ public class ShopAroundPresenterImpl extends BasePresenterImpl<ShopAroundView,Rs
     }
 
     @Override
-    public void success(RspShopBean data) {
+    public void success(RspSearchBean data) {
         misFirstLoad = true;
         KLog.a("ddd----success");
         if (data == null || data.getBody() == null) return;

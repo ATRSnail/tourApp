@@ -32,7 +32,7 @@ public class GoodListActivity extends BaseActivity implements GoodListView, Base
     @Inject
     GoodListPresenterImpl mGoodListPreter;
     private int id;
-    private GoodListAdapter goodListAdapter;
+    private GoodListAdapter shopGoodAdapter;
     private List<GoodBean> goodBeen;
 
     public static void launch(Context context, int id) {
@@ -63,10 +63,10 @@ public class GoodListActivity extends BaseActivity implements GoodListView, Base
      */
     private void initRecyclerView() {
         goodBeen = new ArrayList<>();
-        goodListAdapter = new GoodListAdapter(R.layout.adapter_good_list, goodBeen);
-        RecyclerViewHelper.initRecyclerViewG(this, news_rv, true, goodListAdapter, 2,R.dimen.margin_decoration_note);
-        goodListAdapter.setOnRecyclerViewItemClickListener(this);
-        news_rv.setAdapter(goodListAdapter);
+        shopGoodAdapter = new GoodListAdapter(R.layout.adapter_good_list, goodBeen);
+        RecyclerViewHelper.initRecyclerViewG(this, news_rv, true, shopGoodAdapter, 2,R.dimen.margin_decoration_note);
+        shopGoodAdapter.setOnRecyclerViewItemClickListener(this);
+        news_rv.setAdapter(shopGoodAdapter);
     }
 
     private void initData() {
@@ -93,7 +93,7 @@ public class GoodListActivity extends BaseActivity implements GoodListView, Base
 
     @Override
     public void setAreaBeanList(List<GoodBean> areaBeanList, @LoadNewsType.checker int loadType) {
-        goodListAdapter.setNewData(areaBeanList);
+        shopGoodAdapter.setNewData(areaBeanList);
     }
 
     @Override

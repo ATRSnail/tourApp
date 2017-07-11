@@ -2,7 +2,6 @@ package com.tour.tourapp.mvp.ui.activity;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -26,7 +25,7 @@ import com.tour.tourapp.entity.ClusterClickListener;
 import com.tour.tourapp.entity.ClusterItem;
 import com.tour.tourapp.entity.ClusterRender;
 import com.tour.tourapp.entity.RegionItem;
-import com.tour.tourapp.entity.RspShopBean;
+import com.tour.tourapp.entity.RspSearchBean;
 import com.tour.tourapp.entity.ShopBean;
 import com.tour.tourapp.utils.TransformUtils;
 
@@ -257,8 +256,8 @@ public class MainActivity extends CheckPermissionsActivity implements AMap.OnMap
 
     private void initData(final double latitude, final double longitude) {
         RetrofitManager.getInstance(1).getShopsListObservable(latitude + "", longitude + "")
-                .compose(TransformUtils.<RspShopBean>defaultSchedulers())
-                .subscribe(new Subscriber<RspShopBean>() {
+                .compose(TransformUtils.<RspSearchBean>defaultSchedulers())
+                .subscribe(new Subscriber<RspSearchBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -270,10 +269,10 @@ public class MainActivity extends CheckPermissionsActivity implements AMap.OnMap
                     }
 
                     @Override
-                    public void onNext(RspShopBean rspShopBean) {
+                    public void onNext(RspSearchBean rspSearchBean) {
 
-                        KLog.d("shop--->"+rspShopBean.toString());
-                        addShopMaker(rspShopBean.getBody().getShops(), latitude, longitude);
+                        KLog.d("shop--->"+ rspSearchBean.toString());
+                        addShopMaker(rspSearchBean.getBody().getShops(), latitude, longitude);
                     }
                 });
     }

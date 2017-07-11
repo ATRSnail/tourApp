@@ -5,7 +5,9 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_toolbar" />
+    <!--实现BaseActivity的通用顶部栏-->
+    <include layout="@layout/top_title_bar" />
+
 
     <RelativeLayout
         android:layout_width="match_parent"

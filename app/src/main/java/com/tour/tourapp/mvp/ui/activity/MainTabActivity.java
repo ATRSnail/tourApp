@@ -5,10 +5,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.tour.tourapp.R;
-import com.tour.tourapp.mvp.ui.fragment.CateFragmentFragment;
+import com.tour.tourapp.mvp.ui.fragment.CateFragment;
 import com.tour.tourapp.mvp.ui.fragment.MainFragment;
 import com.tour.tourapp.mvp.ui.fragment.MemberFragment;
 import com.tour.tourapp.mvp.ui.fragment.ShopCarFragment;
@@ -26,6 +28,7 @@ public class MainTabActivity extends CheckPermissionsActivity {
 
     private ArrayList<String> fragmentTags;
     private FragmentManager fragmentManager;
+    private long mExitTime = 0;
 
     @Override
     public int getLayoutId() {
@@ -40,6 +43,8 @@ public class MainTabActivity extends CheckPermissionsActivity {
     @Override
     public void initViews() {
         fragmentManager = getSupportFragmentManager();
+        mToolbar.setNavigationIcon(null);//去掉Toobar左边箭头
+        mToolbar.setNavigationOnClickListener(null);//去掉Toolbar点击事件
         if (savedInstanceState == null) {
             initData();
             initView();
@@ -71,6 +76,7 @@ public class MainTabActivity extends CheckPermissionsActivity {
     private void initData() {
         currIndex = 0;
         fragmentTags = new ArrayList<>(Arrays.asList("HomeFragment", "ImFragment", "InterestFragment", "MemberFragment"));
+        chageIndex(0);
     }
 
     private void initView() {
@@ -79,28 +85,59 @@ public class MainTabActivity extends CheckPermissionsActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.foot_bar_home: currIndex = 0; break;
-                    case R.id.foot_bar_im: currIndex = 1; break;
-                    case R.id.foot_bar_interest: currIndex = 2; break;
-                    case R.id.main_footbar_user: currIndex = 3; break;
-                    default: break;
+                    case R.id.foot_bar_home:
+                        chageIndex(0);
+                        break;
+                    case R.id.foot_bar_im:
+                        chageIndex(1);
+                        break;
+                    case R.id.foot_bar_interest:
+                        chageIndex(2);
+                        break;
+                    case R.id.main_footbar_user:
+                        chageIndex(3);
+                        break;
+                    default:
+                        break;
                 }
-                showFragment();
+
             }
         });
 
         showFragment();
     }
 
+    private void chageIndex(int index) {
+        String title="";
+        switch (index) {
+            case 0:
+                hideToolBar();
+                break;
+            case 1:
+                hideToolBar();
+                break;
+            case 2:
+                mToolbar.setVisibility(View.VISIBLE);
+                title= "购物车";
+                break;
+            case 3:
+                hideToolBar();
+                break;
+        }
+        setCustomTitle(title);
+        currIndex = index;
+        showFragment();
+    }
+
     private void showFragment() {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment fragment = fragmentManager.findFragmentByTag(fragmentTags.get(currIndex));
-        if(fragment == null) {
+        if (fragment == null) {
             fragment = instantFragment(currIndex);
         }
         for (int i = 0; i < fragmentTags.size(); i++) {
             Fragment f = fragmentManager.findFragmentByTag(fragmentTags.get(i));
-            if(f != null && f.isAdded()) {
+            if (f != null && f.isAdded()) {
                 fragmentTransaction.hide(f);
             }
         }
@@ -115,18 +152,29 @@ public class MainTabActivity extends CheckPermissionsActivity {
 
     private Fragment instantFragment(int currIndex) {
         switch (currIndex) {
-            case 0: return new MainFragment();
-            case 1: return new CateFragmentFragment();
-            case 2: return new ShopCarFragment();
-            case 3: return new MemberFragment();
-            default: return null;
+//            case 0:return new MainFragment();
+            case 0:return new MemberFragment();
+            case 1:
+                return new CateFragment();
+            case 2:
+                return new ShopCarFragment();
+            case 3:
+                return new MemberFragment();
+            default:
+                return null;
         }
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            moveTaskToBack(true);
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                // 如果两次按键时间间隔大于2000毫秒，则不退出
+                Toast.makeText(this, getResources().getString(R.string.second_back_hint), Toast.LENGTH_SHORT).show();
+            } else {
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(0);
+            }
             return true;
         }
         return super.onKeyDown(keyCode, event);

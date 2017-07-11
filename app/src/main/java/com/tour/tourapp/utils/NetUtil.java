@@ -5,6 +5,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.widget.Toast;
+
+import com.tour.tourapp.App;
+import com.tour.tourapp.R;
 
 /**
  * @author xch
@@ -166,5 +170,13 @@ public class NetUtil {
             }
         }
         return false;
+    }
+
+    public static void isNetworkErrThenShowMsg() {
+        if (!isNetworkAvailable(App.getAppContext())) {
+            Toast.makeText(App.getAppContext(), App.getAppContext().getString(R.string.internet_error),
+                    Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

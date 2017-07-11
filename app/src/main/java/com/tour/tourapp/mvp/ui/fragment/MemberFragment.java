@@ -12,7 +12,7 @@ public class MemberFragment extends BaseLazyFragment {
 
     @Override
     public void initInjector() {
-
+        mFragmentComponent.inject(this);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.tour.tourapp.mvp.interactor.impl;
 import com.socks.library.KLog;
 import com.tour.tourapp.api.RetrofitManager;
 import com.tour.tourapp.entity.RspGoodsBean;
+import com.tour.tourapp.entity.Rspclassify;
 import com.tour.tourapp.mvp.interactor.GoodListInter;
 import com.tour.tourapp.mvp.listener.RequestCallBack;
 import com.tour.tourapp.utils.TransformUtils;

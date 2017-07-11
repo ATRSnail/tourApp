@@ -5,10 +5,16 @@ import android.util.SparseArray;
 
 import com.socks.library.KLog;
 import com.tour.tourapp.App;
+import com.tour.tourapp.entity.RspGoodDetailBean;
 import com.tour.tourapp.entity.RspGoodsBean;
-import com.tour.tourapp.entity.RspShopBean;
+import com.tour.tourapp.entity.RspSearchBean;
 import com.tour.tourapp.entity.RspShopDetailBean;
+import com.tour.tourapp.entity.RspStoreDetail;
+import com.tour.tourapp.entity.RspUserAddBean;
+import com.tour.tourapp.entity.RspUserAllAdd;
 import com.tour.tourapp.entity.RspUserBean;
+import com.tour.tourapp.entity.Rspclassify;
+import com.tour.tourapp.entity.base.BaseRspObj;
 import com.tour.tourapp.utils.NetUtil;
 
 import java.io.File;
@@ -128,12 +134,86 @@ public class RetrofitManager {
 
     /************************************ API *******************************************/
 
-    public Observable<RspShopBean> getShopsListObservable(String lats, String longs) {
+    public Observable<RspSearchBean> getShopsListObservable(String lats, String longs) {
         Map<String, String> map = new HashMap<>();
         map.put("lats", lats);
         map.put("longs", longs);
         KLog.d(map.toString());
         return mNewsService.getShopsList(map);
+    }
+
+    public Observable<BaseRspObj> addAddress(String reName, String rePhone, String adds, String aPPuserId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("reName", reName);
+        map.put("rePhone", rePhone);
+        map.put("adds", adds);
+        map.put("aPPuserId", aPPuserId);
+        KLog.d(map.toString());
+        return mNewsService.addAddress(map);
+    }
+
+    public Observable<BaseRspObj> updateAddress(String reName, String rePhone, String adds,String defaultAddress, String aPPuserId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("reName", reName);
+        map.put("rePhone", rePhone);
+        map.put("adds", adds);
+        map.put("defaultAddress", defaultAddress);
+        map.put("aPPuserId", aPPuserId);
+        KLog.d(map.toString());
+        return mNewsService.updateAddress(map);
+    }
+
+    public Observable<RspUserAddBean> searchAddress(String id) {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        KLog.d(map.toString());
+        return mNewsService.searchAddress(map);
+    }
+
+    public Observable<BaseRspObj> deleteAddress(String id) {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        KLog.d(map.toString());
+        return mNewsService.deleteAddress(map);
+    }
+
+    public Observable<RspUserAllAdd> selectAddress(String aPPUserId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("aPPUserId", aPPUserId);
+        KLog.d(map.toString());
+        return mNewsService.selectAddress(map);
+    }
+
+
+    public Observable<RspStoreDetail> shopDetail(String id,String attType) {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        map.put("attType", attType);
+        KLog.d(map.toString());
+        return mNewsService.shopDetail(map);
+    }
+
+
+//    public Observable<RspShopDetailBean> getGoodsByShopId(String id,String goodsType,String attType,String page,String size) {
+    public Observable<RspShopDetailBean> getGoodsByShopId(String id) {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+//        map.put("goodsType", goodsType);
+//        map.put("attType", attType);
+//        map.put("page", page);
+//        map.put("size", size);
+        KLog.a(map.toString());
+        return mNewsService.getGoodsByShopId(map);
+    }
+
+    public Observable<BaseRspObj> regist(String phoneNo,String passW,String nickName,String email) {
+        Map<String, String> map = new HashMap<>();
+        map.put("phoneNo", phoneNo);
+        map.put("passW", passW);
+        map.put("nickName", nickName);
+        map.put("email", email);
+        KLog.d(map.toString());
+        return mNewsService.regist(map);
     }
 
     public Observable<RspUserBean> getLoginInObservable(String phoneNum, String password) {
@@ -144,21 +224,9 @@ public class RetrofitManager {
         return mNewsService.loginIn(map);
     }
 
-    public Observable<RspGoodsBean> getshopGoodByIdObservable(String id) {
-        Map<String, String> map = new HashMap<>();
-        map.put("id", id);
-        KLog.a(map.toString());
-        return mNewsService.shopGoodById(map);
-    }
 
-    public Observable<RspShopDetailBean> getGoodsByShopId(String id) {
-        Map<String, String> map = new HashMap<>();
-        map.put("id", id);
-        KLog.a(map.toString());
-        return mNewsService.getGoodsByShopId(map);
-    }
-
-    public Observable<RspShopBean> searchGoodsOrShop(String shopsName, String goodsName) {
+    public Observable<RspSearchBean> searchGoodsOrShop(String shopsName, String goodsName) {
+        //注意两参数传一个即可
         Map<String, String> map = new HashMap<>();
         if (!TextUtils.isEmpty(shopsName))
             map.put("shopsName", shopsName);
@@ -166,5 +234,29 @@ public class RetrofitManager {
             map.put("goodsName", goodsName);
         KLog.a(map.toString());
         return mNewsService.searchGoodsOrShop(map);
+    }
+
+    public Observable<RspGoodDetailBean> goodsDetail(String id) {
+        Map<String, String> map = new HashMap<>();
+            map.put("id", id);
+        KLog.a(map.toString());
+        return mNewsService.goodsDetail(map);
+
+
+    }
+
+    public Observable<Rspclassify> classify_First() {
+        Map<String, String> map = new HashMap<>();
+        KLog.a(map.toString());
+        return mNewsService.classify_First(map);
+    }
+
+
+
+    public Observable<RspGoodsBean> getshopGoodByIdObservable(String id) {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        KLog.a(map.toString());
+        return mNewsService.shopGoodById(map);
     }
 }

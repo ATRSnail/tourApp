@@ -16,6 +16,7 @@ import com.tour.tourapp.api.LoadNewsType;
 import com.tour.tourapp.entity.GoodBean;
 import com.tour.tourapp.entity.ShopDetailBean;
 import com.tour.tourapp.mvp.adapter.GoodListAdapter;
+import com.tour.tourapp.mvp.adapter.ShopGoodAdapter;
 import com.tour.tourapp.mvp.presenter.impl.ShopDetailPresenterImpl;
 import com.tour.tourapp.mvp.view.base.ShopDetailView;
 
@@ -42,7 +43,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailView, 
     private TextView tv_address;
     private View shopDateView;
     private int id;
-    private GoodListAdapter goodListAdapter;
+    private GoodListAdapter shopGoodAdapter;
     private List<GoodBean> goodBeen;
 
     public static void launch(Context context, int id) {
@@ -82,11 +83,11 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailView, 
      */
     private void initRecyclerView() {
         goodBeen = new ArrayList<>();
-        goodListAdapter = new GoodListAdapter(R.layout.adapter_good_list, goodBeen);
-        RecyclerViewHelper.initRecyclerViewG(this, news_rv, true, goodListAdapter, 2,R.dimen.margin_decoration_note,true);
-        goodListAdapter.setOnRecyclerViewItemClickListener(this);
-        goodListAdapter.addHeaderView(shopDateView);
-        news_rv.setAdapter(goodListAdapter);
+        shopGoodAdapter = new GoodListAdapter(R.layout.adapter_good_list, goodBeen);
+        RecyclerViewHelper.initRecyclerViewG(this, news_rv, true, shopGoodAdapter, 2,R.dimen.margin_decoration_note,true);
+        shopGoodAdapter.setOnRecyclerViewItemClickListener(this);
+        shopGoodAdapter.addHeaderView(shopDateView);
+        news_rv.setAdapter(shopGoodAdapter);
     }
 
     private void initData() {
@@ -113,7 +114,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailView, 
 
     @Override
     public void setAreaBeanList(ShopDetailBean shopDetailBean, @LoadNewsType.checker int loadType) {
-        goodListAdapter.setNewData(shopDetailBean.getGoods());
+        shopGoodAdapter.setNewData(shopDetailBean.getGoods());
         tv_title.setText(shopDetailBean.getShops().getShopsName());
         tv_address.setText(shopDetailBean.getShops().getShopsAdds());
     }

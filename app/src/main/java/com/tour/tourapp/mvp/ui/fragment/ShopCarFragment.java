@@ -1,5 +1,6 @@
 package com.tour.tourapp.mvp.ui.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -19,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 
 public class ShopCarFragment extends BaseLazyFragment implements ShopcartExpandableListViewAdapter.CheckInterface, ShopcartExpandableListViewAdapter.ModifyCountInterface, View.OnClickListener {
@@ -34,6 +37,8 @@ public class ShopCarFragment extends BaseLazyFragment implements ShopcartExpanda
     TextView tv_go_to_pay;
     private Context context;
 
+
+
     private double totalPrice = 0.00;// 购买的商品总价
     private int totalCount = 0;// 购买的商品总数量
 
@@ -48,11 +53,12 @@ public class ShopCarFragment extends BaseLazyFragment implements ShopcartExpanda
 
     @Override
     public void initInjector() {
-
+        mFragmentComponent.inject(this);
     }
 
     @Override
     public void initViews(View view) {
+        context = getContext();
         virtualData();
         initEvents();
     }

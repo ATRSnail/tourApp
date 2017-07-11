@@ -6,8 +6,10 @@ import android.content.Context;
 import com.tour.tourapp.di.module.FragmentModule;
 import com.tour.tourapp.di.scope.ContextLife;
 import com.tour.tourapp.di.scope.PerFragment;
-import com.tour.tourapp.mvp.ui.fragment.CateFragmentFragment;
+import com.tour.tourapp.mvp.ui.fragment.CateFragment;
 import com.tour.tourapp.mvp.ui.fragment.MainFragment;
+import com.tour.tourapp.mvp.ui.fragment.MemberFragment;
+import com.tour.tourapp.mvp.ui.fragment.ShopCarFragment;
 
 import dagger.Component;
 
@@ -29,5 +31,9 @@ public interface FragmentComponent {
 
     void inject(MainFragment mainFragment);
 
-    void inject(CateFragmentFragment cateFragmentFragment);
+    void inject(CateFragment cateFragment);
+
+    void inject(MemberFragment memberFragment);
+
+    void inject(ShopCarFragment shopCarFragment);
 }

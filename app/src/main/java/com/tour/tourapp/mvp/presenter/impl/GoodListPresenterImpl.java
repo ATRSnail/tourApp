@@ -62,8 +62,8 @@ public class GoodListPresenterImpl extends BasePresenterImpl<GoodListView,RspGoo
     @Override
     public void success(RspGoodsBean data) {
         misFirstLoad = true;
-        KLog.a("ddd----success");
         if (data == null || data.getBody() == null) return;
+        KLog.a("ddd----success");
         int loadType = mIsRefresh ? LoadNewsType.TYPE_REFRESH_SUCCESS : LoadNewsType.TYPE_LOAD_MORE_SUCCESS;
         pageNum++;
         if (mView != null) {

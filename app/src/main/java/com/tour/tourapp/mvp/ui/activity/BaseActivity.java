@@ -2,14 +2,22 @@ package com.tour.tourapp.mvp.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.socks.library.KLog;
 import com.tour.tourapp.App;
+import com.tour.tourapp.R;
 import com.tour.tourapp.di.component.ActivityComponent;
 import com.tour.tourapp.di.component.DaggerActivityComponent;
 import com.tour.tourapp.di.module.ActivityModule;
 import com.tour.tourapp.mvp.presenter.base.BasePresenter;
+import com.tour.tourapp.utils.NetUtil;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Subscription;
 
@@ -19,6 +27,14 @@ import rx.Subscription;
  * @create_date 16/12/22
  */
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
+
+    @BindView(R.id.toolbar_top)
+    public Toolbar mToolbar;
+
+    @BindView(R.id.middle_top)
+    TextView mToolbarTitle;
+    @BindView(R.id.right_top)
+    TextView right_top;
 
     protected ActivityComponent mActivityComponent;
 
@@ -39,7 +55,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         super.onCreate(savedInstanceState);
         KLog.i(getClass().getSimpleName());
         this.savedInstanceState = savedInstanceState;
-//        NetUtil.isNetworkErrThenShowMsg();
+        NetUtil.isNetworkErrThenShowMsg();
         initActivityComponent();
         int layoutId = getLayoutId();
         setContentView(layoutId);
@@ -48,6 +64,17 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
         if (mPresenter != null){
             mPresenter.onCreate();
+        }
+
+        if (mToolbar!=null){
+            mToolbar.setTitle("");
+            setSupportActionBar(mToolbar);
+            mToolbar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
         }
 
         initViews();
@@ -69,4 +96,21 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                 .activityModule(new ActivityModule(this))
                 .build();
     }
+
+    public void setCustomTitle(String title) {
+        if (mToolbarTitle != null)
+            mToolbarTitle.setText(title);
+    }
+
+    public void hideToolBar() {
+        if (mToolbar != null)
+            mToolbar.setVisibility(View.GONE);
+    }
+
+    public void hideRight() {
+        if (right_top != null)
+            mToolbar.setVisibility(View.GONE);
+    }
+
+
 }
