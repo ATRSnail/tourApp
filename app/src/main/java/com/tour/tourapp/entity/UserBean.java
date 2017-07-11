@@ -3,9 +3,7 @@ package com.tour.tourapp.entity;
 import java.io.Serializable;
 
 /**
- * @author xch
- * @version 1.0
- * @create_date 16/12/28
+ * 用户 信息详情
  */
 public class UserBean implements Serializable{
 

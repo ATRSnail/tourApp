@@ -69,7 +69,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         if (mToolbar!=null){
             mToolbar.setTitle("");
             setSupportActionBar(mToolbar);
-            mToolbar.setOnClickListener(new View.OnClickListener() {
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     finish();
@@ -102,6 +102,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             mToolbarTitle.setText(title);
     }
 
+    public void setRightTitle(String title) {
+        if (right_top != null)
+            right_top.setText(title);
+    }
+
     public void hideToolBar() {
         if (mToolbar != null)
             mToolbar.setVisibility(View.GONE);
@@ -109,7 +114,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     public void hideRight() {
         if (right_top != null)
-            mToolbar.setVisibility(View.GONE);
+            right_top.setVisibility(View.GONE);
     }
 
 

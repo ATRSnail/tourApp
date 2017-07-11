@@ -4,12 +4,13 @@ import java.util.List;
 
 /**
  * Created by ATRSnail on 2017/5/25.
+ * 分类--实体
  */
 
 public class ClassifyBean {
-    List<ShopGood> shopGoods;
+    List<ShopGood> shopGoods;//商品信息列表
 
-    List<GoodsClassify> goodsClassify;
+    List<GoodsClassify> goodsClassify;//商品的分类状态列表
 
     public List<ShopGood> getShopGoods() {
         return shopGoods;

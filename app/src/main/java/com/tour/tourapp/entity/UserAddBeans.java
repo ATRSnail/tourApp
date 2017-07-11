@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by ATRSnail on 2017/5/23.
+ * 根据app用户的id查询所有的收货地址
  */
 
 public class UserAddBeans {

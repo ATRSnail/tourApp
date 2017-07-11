@@ -24,6 +24,6 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public void initViews() {
-
+           setCustomTitle("注册");
     }
 }

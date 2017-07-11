@@ -24,6 +24,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
+/**
+ * 购物车---碎片
+ */
 public class ShopCarFragment extends BaseLazyFragment implements ShopcartExpandableListViewAdapter.CheckInterface, ShopcartExpandableListViewAdapter.ModifyCountInterface, View.OnClickListener {
     @BindView(R.id.exListView)
     ExpandableListView exListView;

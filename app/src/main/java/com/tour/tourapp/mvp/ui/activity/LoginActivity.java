@@ -20,9 +20,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.Subscriber;
 
 /**
- * @author xch
- * @version 1.0
- * @create_date 16/12/27
+ * 登录界面
  */
 public class LoginActivity extends BaseActivity {
 
@@ -51,6 +49,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initViews() {
+        setCustomTitle("登录");
+        setRightTitle("注册");
         initDialog();
         phoneEt.setText("11111111111");
         passwordEt.setText("xuch");

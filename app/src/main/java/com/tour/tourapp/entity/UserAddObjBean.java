@@ -2,6 +2,7 @@ package com.tour.tourapp.entity;
 
 /**
  * Created by ATRSnail on 2017/5/23.
+ *根据收货地址id  查询的收货地址
  */
 
 public class UserAddObjBean {

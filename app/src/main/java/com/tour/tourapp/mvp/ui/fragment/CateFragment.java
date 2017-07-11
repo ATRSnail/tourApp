@@ -1,11 +1,7 @@
 package com.tour.tourapp.mvp.ui.fragment;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,18 +19,13 @@ import com.socks.library.KLog;
 import com.tour.tourapp.App;
 import com.tour.tourapp.R;
 import com.tour.tourapp.api.LoadNewsType;
-import com.tour.tourapp.entity.GoodBean;
 import com.tour.tourapp.entity.GoodsClassify;
 import com.tour.tourapp.entity.ShopGood;
-import com.tour.tourapp.mvp.adapter.CustomAdapter;
 import com.tour.tourapp.mvp.adapter.GoodsClassifyAdapter;
 import com.tour.tourapp.mvp.adapter.ShopGoodAdapter;
 import com.tour.tourapp.mvp.presenter.impl.CatePresenterImpl;
-import com.tour.tourapp.mvp.presenter.impl.GoodListPresenterImpl;
 import com.tour.tourapp.mvp.ui.activity.GoodDetailActivity;
 import com.tour.tourapp.mvp.view.base.CateView;
-import com.tour.tourapp.mvp.view.base.GoodListView;
-import com.tour.tourapp.utils.CustomRecyclerView;
 import com.tour.tourapp.utils.NetUtil;
 import com.tour.tourapp.utils.ScreenUtils;
 import com.tour.tourapp.utils.UT;
@@ -92,7 +83,7 @@ public class CateFragment extends BaseFragment implements BaseQuickAdapter.OnRec
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_catefragment_list;
+        return R.layout.fragment_catefragment;
     }
 
 

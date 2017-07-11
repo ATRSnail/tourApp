@@ -23,14 +23,14 @@ public final class ApiConstants {
 
     public static final String Update_Address = "/ds-api/appUserAdds/updateAddress";//修改收货地址及更改默认地址
 
-    public static final String Search_Address = "/ds-api/appUserAdds/lookAddress";//根据id查询收货地址
+    public static final String Look_Address = "/ds-api/appUserAdds/lookAddress";//根据收货地址id  查询收货地址
 
     public static final String Delete_Address = "/ds-api/appUserAdds/deleteAddress";//删除收件地址
 
-    public static final String Select_Address = "/ds-api/appUserAdds/selectAddress";
+    public static final String Select_Address = "/ds-api/appUserAdds/selectAddress";//根据用户的id查询收件地址
 
     //根据商铺id，查询商铺的详细信息
-    public static final String Shop_Detail = "ds-api/shops/showOne";
+    public static final String Store_Detail = "ds-api/shops/showOne";
 
     //根据商铺id查询该商铺下所有商品或以类别区分
     public static final String GOODS_IN_SHOP= "ds-api/shopsGood/getGoodsByShopId/";
@@ -45,6 +45,6 @@ public final class ApiConstants {
 
     public static final String Goods_Detail= "ds-api/shopsGood/lookGoods";
 
-    public static final String Classify_First= "ds-api/classify/classifyGoods";
+    public static final String Classify_First= "ds-api/classify/classifyGoods";//分类首页接口
 
 }

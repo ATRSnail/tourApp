@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Created by ATRSnail on 2017/5/25.
- * 商品详情
+ * 商品信息的详情
  */
 
 public class ShopGood {

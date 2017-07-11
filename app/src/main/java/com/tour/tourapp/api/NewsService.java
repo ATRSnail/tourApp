@@ -25,12 +25,12 @@ import static com.tour.tourapp.api.ApiConstants.Delete_Address;
 import static com.tour.tourapp.api.ApiConstants.GOODS_IN_SHOP;
 import static com.tour.tourapp.api.ApiConstants.Goods_Detail;
 import static com.tour.tourapp.api.ApiConstants.LOGIN_IN_URL;
+import static com.tour.tourapp.api.ApiConstants.Look_Address;
 import static com.tour.tourapp.api.ApiConstants.NEARBY_SHOP;
 import static com.tour.tourapp.api.ApiConstants.Regist;
 import static com.tour.tourapp.api.ApiConstants.SEARCH_GOODS_SHOP;
-import static com.tour.tourapp.api.ApiConstants.Search_Address;
 import static com.tour.tourapp.api.ApiConstants.Select_Address;
-import static com.tour.tourapp.api.ApiConstants.Shop_Detail;
+import static com.tour.tourapp.api.ApiConstants.Store_Detail;
 import static com.tour.tourapp.api.ApiConstants.Update_Address;
 
 /**
@@ -52,8 +52,8 @@ public interface NewsService {
     Observable<BaseRspObj> updateAddress(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
-    @POST(Search_Address)
-    Observable<RspUserAddBean> searchAddress(@FieldMap Map<String, String> map);
+    @POST(Look_Address)
+    Observable<RspUserAddBean> lookAddress(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
     @POST(Delete_Address)
@@ -64,9 +64,10 @@ public interface NewsService {
     Observable<RspUserAllAdd> selectAddress(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
-    @POST(Shop_Detail)
-    Observable<RspStoreDetail> shopDetail(@FieldMap Map<String, String> map);
+    @POST(Store_Detail)
+    Observable<RspStoreDetail> storeDetail(@FieldMap Map<String, String> map);
 
+    //根据商铺id查询该商铺下所有商品或以类别区分
     @FormUrlEncoded
     @POST(GOODS_IN_SHOP)
     Observable<RspShopDetailBean> getGoodsByShopId(@FieldMap Map<String, String> map);
@@ -91,6 +92,7 @@ public interface NewsService {
     @POST(Goods_Detail)
     Observable<RspGoodDetailBean> goodsDetail(@FieldMap Map<String, String> map);
 
+    //分类--接口
     @FormUrlEncoded
     @POST(Classify_First)
     Observable<Rspclassify> classify_First(@FieldMap Map<String, String> map);

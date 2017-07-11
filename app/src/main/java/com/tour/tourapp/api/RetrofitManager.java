@@ -163,11 +163,11 @@ public class RetrofitManager {
         return mNewsService.updateAddress(map);
     }
 
-    public Observable<RspUserAddBean> searchAddress(String id) {
+    public Observable<RspUserAddBean> lookAddress(String id) {
         Map<String, String> map = new HashMap<>();
         map.put("id", id);
         KLog.d(map.toString());
-        return mNewsService.searchAddress(map);
+        return mNewsService.lookAddress(map);
     }
 
     public Observable<BaseRspObj> deleteAddress(String id) {
@@ -185,12 +185,12 @@ public class RetrofitManager {
     }
 
 
-    public Observable<RspStoreDetail> shopDetail(String id,String attType) {
+    public Observable<RspStoreDetail> storeDetail(String id,String attType) {
         Map<String, String> map = new HashMap<>();
         map.put("id", id);
         map.put("attType", attType);
         KLog.d(map.toString());
-        return mNewsService.shopDetail(map);
+        return mNewsService.storeDetail(map);
     }
 
 

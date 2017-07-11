@@ -14,10 +14,14 @@ import com.tour.tourapp.mvp.ui.fragment.CateFragment;
 import com.tour.tourapp.mvp.ui.fragment.MainFragment;
 import com.tour.tourapp.mvp.ui.fragment.MemberFragment;
 import com.tour.tourapp.mvp.ui.fragment.ShopCarFragment;
+import com.tour.tourapp.utils.UT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * 主页面
+ */
 public class MainTabActivity extends CheckPermissionsActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String FRAGMENT_TAGS = "fragmentTags";
@@ -109,15 +113,17 @@ public class MainTabActivity extends CheckPermissionsActivity {
 
     private void chageIndex(int index) {
         String title="";
+
         switch (index) {
             case 0:
-                hideToolBar();
+               hideToolBar();
                 break;
             case 1:
                 hideToolBar();
                 break;
             case 2:
-                mToolbar.setVisibility(View.VISIBLE);
+                if (mToolbar != null)
+                    mToolbar.setVisibility(View.VISIBLE);
                 title= "购物车";
                 break;
             case 3:
@@ -170,7 +176,8 @@ public class MainTabActivity extends CheckPermissionsActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if ((System.currentTimeMillis() - mExitTime) > 2000) {
                 // 如果两次按键时间间隔大于2000毫秒，则不退出
-                Toast.makeText(this, getResources().getString(R.string.second_back_hint), Toast.LENGTH_SHORT).show();
+                UT.showNormal( getResources().getString(R.string.second_back_hint));
+                 mExitTime = System.currentTimeMillis();//更新mExitTime
             } else {
                 android.os.Process.killProcess(android.os.Process.myPid());
                 System.exit(0);

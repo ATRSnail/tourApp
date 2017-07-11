@@ -1,9 +1,7 @@
 package com.tour.tourapp.entity;
 
 /**
- * @author xch
- * @version 1.0
- * @create_date 16/12/28
+ * 用户 信息
  */
 public class UserObjBean {
 

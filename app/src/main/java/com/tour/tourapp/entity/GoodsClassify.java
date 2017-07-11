@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by ATRSnail on 2017/5/25.
+ * 商品的分类状态列表
  */
 
 public class GoodsClassify {
