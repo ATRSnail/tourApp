@@ -30,10 +30,10 @@ public final class ApiConstants {
     public static final String Select_Address = "/ds-api/appUserAdds/selectAddress";//根据用户的id查询收件地址
 
     //根据商铺id，查询商铺的详细信息
-    public static final String Store_Detail = "ds-api/shops/showOne";
+    public static final String SHOP_Detail = "ds-api/shops/showOne";
 
     //根据商铺id查询该商铺下所有商品或以类别区分
-    public static final String GOODS_IN_SHOP= "ds-api/shopsGood/getGoodsByShopId/";
+    public static final String GOODS_IN_SHOP = "ds-api/shopsGood/getGoodsByShopId/";
 
     public static final String Regist = "ds-api/appUser/regist";
 
@@ -41,10 +41,36 @@ public final class ApiConstants {
 
     public static final String Alter = "ds-api/appUser/modi";
 
-    public static final String SEARCH_GOODS_SHOP= "ds-api/shopsGood/serchGoodsOrShop";
+    public static final String SEARCH_GOODS_SHOP = "ds-api/shopsGood/serchGoodsOrShop";
 
-    public static final String Goods_Detail= "ds-api/shopsGood/lookGoods";
+    //根据商品的id查询商品的详细信息
+    public static final String Goods_Detail = "ds-api/shopsGood/lookGoods";
 
-    public static final String Classify_First= "ds-api/classify/classifyGoods";//分类首页接口
+    public static final String Classify_First = "ds-api/classify/classifyGoods";//分类首页接口
+
+    //添加到购物车
+    public static final String Add_Cart = "ds-api/cart/addCart";
+
+    //修改购物车的某件商品的数量
+    public static final String Update_Cart = "ds-api/cart/updateCart";
+
+    //删除购物车的商品
+    public static final String Delete_Cart = "ds-api/cart/deleteCart";
+
+    //查看购物车的商品
+    public static final String QUERY_Cart = "ds-api/cart/selectCart";
+
+
+    //添加订单
+    public static final String Add_Order = "ds-api/order/addOrder";
+
+    //删除订单
+    public static final String Delete_Order = "ds-api/order/deleteOrder";
+
+    //查询订单
+    public static final String QUERY_ORDER = "ds-api/order/listByOrder";
+
+    //修改订单
+    public static final String UPDATE_ORDER = "ds-api/order/updateOrder";
 
 }

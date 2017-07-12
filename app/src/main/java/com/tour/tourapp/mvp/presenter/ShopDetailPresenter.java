@@ -10,5 +10,5 @@ import com.tour.tourapp.mvp.presenter.base.BaseRefreshPresenter;
 
 public interface ShopDetailPresenter extends BaseRefreshPresenter{
 
-    void setParams(int id);
+    void setParams(int id,int pageNum,int numPerPage,String goodsType,String attType);
 }

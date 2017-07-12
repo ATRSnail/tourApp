@@ -158,8 +158,8 @@ public class MainTabActivity extends CheckPermissionsActivity {
 
     private Fragment instantFragment(int currIndex) {
         switch (currIndex) {
-//            case 0:return new MainFragment();
-            case 0:return new MemberFragment();
+            case 0:return new MainFragment();
+//            case 0:return new MemberFragment();
             case 1:
                 return new CateFragment();
             case 2:

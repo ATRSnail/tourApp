@@ -5,20 +5,20 @@ package com.tour.tourapp.entity;
  * 根据商铺id，查询商铺的详细信息
  */
 
-public class StoreDetailObj {
-    StoreDetail shop;
+public class ShopDetailBeans {
+    ShopDetailBean shop;
 
-    public StoreDetail getShop() {
+    public ShopDetailBean getShop() {
         return shop;
     }
 
-    public void setShop(StoreDetail shop) {
+    public void setShop(ShopDetailBean shop) {
         this.shop = shop;
     }
 
     @Override
     public String toString() {
-        return "StoreDetailObj{" +
+        return "ShopDetailBeans{" +
                 "shop=" + shop +
                 '}';
     }

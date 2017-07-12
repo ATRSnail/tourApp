@@ -2,6 +2,7 @@ package com.tour.tourapp.mvp.view.base;
 
 import com.tour.tourapp.api.LoadNewsType;
 import com.tour.tourapp.entity.ShopBean;
+import com.tour.tourapp.entity.ShopDetailBean;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ import java.util.List;
 
 public interface ShopAroundView extends BaseView{
 
-    void setAreaBeanList(List<ShopBean> areaBeanList, @LoadNewsType.checker int loadType);
+    void setAreaBeanList(List<ShopDetailBean> areaBeanList, @LoadNewsType.checker int loadType);
 }

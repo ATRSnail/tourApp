@@ -12,6 +12,7 @@ import com.dl7.recycler.listener.OnRecyclerViewItemClickListener;
 import com.tour.tourapp.R;
 import com.tour.tourapp.api.LoadNewsType;
 import com.tour.tourapp.entity.ShopBean;
+import com.tour.tourapp.entity.ShopDetailBean;
 import com.tour.tourapp.mvp.adapter.ShopAroundAdapter;
 import com.tour.tourapp.mvp.presenter.impl.SearchResultPresenterImpl;
 import com.tour.tourapp.mvp.view.base.ShopAroundView;
@@ -105,7 +106,7 @@ public class SearchResultActivity extends BaseActivity implements OnRecyclerView
     }
 
     @Override
-    public void setAreaBeanList(List<ShopBean> areaBeanList, @LoadNewsType.checker int loadType) {
+    public void setAreaBeanList(List<ShopDetailBean> areaBeanList, @LoadNewsType.checker int loadType) {
         shopAroundAdapter.updateItems(areaBeanList);
     }
 }

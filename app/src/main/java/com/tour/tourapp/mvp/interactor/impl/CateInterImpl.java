@@ -45,6 +45,7 @@ public class CateInterImpl implements CateInter<Rspclassify> {
 
                     @Override
                     public void onNext(Rspclassify rspClassify) {
+                        KLog.d(rspClassify.toString());
                         listener.success(rspClassify);
                     }
                 });

@@ -31,11 +31,12 @@ import com.tour.tourapp.api.RetrofitManager;
 import com.tour.tourapp.entity.ClusterClickListener;
 import com.tour.tourapp.entity.ClusterItem;
 import com.tour.tourapp.entity.ClusterRender;
-import com.tour.tourapp.entity.GoodBean;
+import com.tour.tourapp.entity.GoodsBean;
 import com.tour.tourapp.entity.RegionItem;
 import com.tour.tourapp.entity.RspGoodsBean;
-import com.tour.tourapp.entity.RspSearchBean;
+import com.tour.tourapp.entity.RspNearbyShopBean;
 import com.tour.tourapp.entity.ShopBean;
+import com.tour.tourapp.entity.ShopDetailBean;
 import com.tour.tourapp.mvp.ui.activity.GoodDetailActivity;
 import com.tour.tourapp.mvp.ui.activity.GoodListActivity;
 import com.tour.tourapp.mvp.ui.activity.SearchActivity;
@@ -53,9 +54,7 @@ import butterknife.BindView;
 import rx.Subscriber;
 
 /**
- * @author xch
- * @version 1.0
- * @create_date 2017/4/17
+ * 首页地图
  */
 
 public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedListener
@@ -79,6 +78,8 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
 
     private PopupWindow popupWindow;
     private View popView;
+
+    private List<ShopDetailBean> shops;
 
     @Inject
     Activity mActivity;
@@ -291,7 +292,7 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
                 });
     }
 
-    private void fillDate(String shopName, List<GoodBean> goodBeen) {
+    private void fillDate(String shopName, List<GoodsBean> goodBeen) {
         tv_shop_name.setText(shopName);
         ImageLoader.loadFit(getContext(), "", img_shop, R.mipmap.ic_launcher);
     }
@@ -309,8 +310,8 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
     private void initData(final double latitude, final double longitude) {
         KLog.d("shop--->" + latitude);
         RetrofitManager.getInstance(1).getShopsListObservable(latitude + "", longitude + "")
-                .compose(TransformUtils.<RspSearchBean>defaultSchedulers())
-                .subscribe(new Subscriber<RspSearchBean>() {
+                .compose(TransformUtils.<RspNearbyShopBean>defaultSchedulers())
+                .subscribe(new Subscriber<RspNearbyShopBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -322,20 +323,20 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
                     }
 
                     @Override
-                    public void onNext(RspSearchBean rspSearchBean) {
-                        shops = rspSearchBean.getBody().getShops();
+                    public void onNext(RspNearbyShopBean rspNearbyShopBean) {
+                        shops = rspNearbyShopBean.getBody().getShops();
                         if (shops == null)
                             shops = new ArrayList<>();
-                        shops.add(0, new ShopBean(latitude + "", longitude + ""));
-                        KLog.d("shop--->" + rspSearchBean.toString());
+                        shops.add(0, new ShopDetailBean(latitude + "", longitude + ""));
+                        KLog.d("shop--->" + rspNearbyShopBean.toString());
                         addShopMaker(shops, latitude, longitude);
                     }
                 });
     }
 
-    private List<ShopBean> shops;
 
-    private void addShopMaker(final List<ShopBean> shops, final double latitude, final double longitude) {
+
+    private void addShopMaker(final List<ShopDetailBean> shops, final double latitude, final double longitude) {
         //添加测试数据
         new Thread() {
             public void run() {
@@ -344,13 +345,13 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
 
                 //随机10000个点
                 for (int i = 0; i < shops.size(); i++) {
-                    ShopBean shopBean = shops.get(i);
-                    double lat = Double.valueOf(shopBean.getLats());
-                    double lon = Double.valueOf(shopBean.getLongs());
+                    ShopDetailBean shopDetailBean = shops.get(i);
+                    double lat = Double.valueOf(shopDetailBean.getLats());
+                    double lon = Double.valueOf(shopDetailBean.getLongs());
 
                     LatLng latLng = new LatLng(lat, lon, false);
                     RegionItem regionItem = new RegionItem(latLng,
-                            shopBean.getShopsName());
+                            shopDetailBean.getShopsName());
                     KLog.d("shop--->" + lat);
                     items.add(regionItem);
                 }

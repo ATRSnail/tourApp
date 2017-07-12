@@ -2,7 +2,7 @@ package com.tour.tourapp.mvp.interactor.impl;
 
 import com.socks.library.KLog;
 import com.tour.tourapp.api.RetrofitManager;
-import com.tour.tourapp.entity.RspShopDetailBean;
+import com.tour.tourapp.entity.RspShopAllGoodBean;
 import com.tour.tourapp.mvp.interactor.ShopDetailInter;
 import com.tour.tourapp.mvp.listener.RequestCallBack;
 import com.tour.tourapp.utils.TransformUtils;
@@ -18,18 +18,18 @@ import rx.Subscription;
  * @create_date 2017/5/3
  */
 
-public class ShopDetailInterImpl implements ShopDetailInter<RspShopDetailBean> {
+public class ShopDetailInterImpl implements ShopDetailInter<RspShopAllGoodBean> {
 
     @Inject
     public ShopDetailInterImpl() {
     }
 
     @Override
-    public Subscription loadNews(final RequestCallBack<RspShopDetailBean> listener,int id) {
+    public Subscription loadNews(final RequestCallBack<RspShopAllGoodBean> listener, String id,String goodsType,String attType,String page,String size) {
 
-        RetrofitManager.getInstance(1).getGoodsByShopId(id+"")
-                .compose(TransformUtils.<RspShopDetailBean>defaultSchedulers())
-                .subscribe(new Subscriber<RspShopDetailBean>() {
+        RetrofitManager.getInstance(1).getGoodsByShopId(id,goodsType,attType,page,size)
+                .compose(TransformUtils.<RspShopAllGoodBean>defaultSchedulers())
+                .subscribe(new Subscriber<RspShopAllGoodBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -37,13 +37,14 @@ public class ShopDetailInterImpl implements ShopDetailInter<RspShopDetailBean> {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        KLog.e(e.toString());
+                        listener.onError(e.toString());
                     }
 
                     @Override
-                    public void onNext(RspShopDetailBean rspShopBean) {
+                    public void onNext(RspShopAllGoodBean rspShopBean) {
 
-                        KLog.d("shop--->" + rspShopBean.toString());
+                        KLog.d(rspShopBean.toString());
                         listener.success(rspShopBean);
                     }
                 });

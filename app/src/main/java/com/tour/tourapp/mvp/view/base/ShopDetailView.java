@@ -1,7 +1,7 @@
 package com.tour.tourapp.mvp.view.base;
 
 import com.tour.tourapp.api.LoadNewsType;
-import com.tour.tourapp.entity.ShopDetailBean;
+import com.tour.tourapp.entity.ShopAllGoodBean;
 
 /**
  * @author xch
@@ -11,5 +11,5 @@ import com.tour.tourapp.entity.ShopDetailBean;
 
 public interface ShopDetailView extends BaseView{
 
-    void setAreaBeanList(ShopDetailBean shopDetailBean, @LoadNewsType.checker int loadType);
+    void setAreaBeanList(ShopAllGoodBean shopAllGoodBean, @LoadNewsType.checker int loadType);
 }

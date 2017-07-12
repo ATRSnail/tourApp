@@ -2,7 +2,7 @@ package com.tour.tourapp.mvp.presenter.impl;
 
 import com.socks.library.KLog;
 import com.tour.tourapp.api.LoadNewsType;
-import com.tour.tourapp.entity.RspSearchBean;
+import com.tour.tourapp.entity.RspNearbyShopBean;
 import com.tour.tourapp.mvp.interactor.SearchResultInter;
 import com.tour.tourapp.mvp.interactor.impl.SearchResultInterImpl;
 import com.tour.tourapp.mvp.presenter.SearchResultPresenter;
@@ -17,9 +17,9 @@ import javax.inject.Inject;
  * @create_date 2017/5/3
  */
 
-public class SearchResultPresenterImpl extends BasePresenterImpl<ShopAroundView, RspSearchBean> implements SearchResultPresenter {
+public class SearchResultPresenterImpl extends BasePresenterImpl<ShopAroundView, RspNearbyShopBean> implements SearchResultPresenter {
 
-    private SearchResultInter<RspSearchBean> mNewsInteractor;
+    private SearchResultInter<RspNearbyShopBean> mNewsInteractor;
     private int pageNum;
     private int numPerPage;
     private boolean mIsRefresh = true;
@@ -61,7 +61,7 @@ public class SearchResultPresenterImpl extends BasePresenterImpl<ShopAroundView,
     }
 
     @Override
-    public void success(RspSearchBean data) {
+    public void success(RspNearbyShopBean data) {
         misFirstLoad = true;
         KLog.a("ddd----success");
         if (data == null || data.getBody() == null) return;

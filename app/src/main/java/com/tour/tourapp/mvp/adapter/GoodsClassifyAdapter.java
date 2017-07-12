@@ -7,9 +7,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tour.tourapp.R;
-import com.tour.tourapp.entity.GoodBean;
 import com.tour.tourapp.entity.GoodsClassify;
-import com.tour.tourapp.entity.ShopGood;
 
 import java.util.List;
 

@@ -8,5 +8,5 @@ import com.tour.tourapp.entity.base.BaseRspObj;
  * @create_date 2017/5/2
  */
 
-public class RspGoodsBean extends BaseRspObj<GoodsBean> {
+public class RspGoodsBean extends BaseRspObj<GoodsObjectBean> {
 }

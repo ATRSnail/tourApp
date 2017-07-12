@@ -12,11 +12,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.tour.tourapp.R;
 import com.tour.tourapp.api.ApiConstants;
-import com.tour.tourapp.entity.GoodBean;
 import com.tour.tourapp.entity.ShopGood;
 
 import java.util.ArrayList;

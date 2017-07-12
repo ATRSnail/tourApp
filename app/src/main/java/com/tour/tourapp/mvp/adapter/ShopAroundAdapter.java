@@ -7,6 +7,7 @@ import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.adapter.BaseViewHolder;
 import com.tour.tourapp.R;
 import com.tour.tourapp.entity.ShopBean;
+import com.tour.tourapp.entity.ShopDetailBean;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * @create_date 2017/5/2
  */
 
-public class ShopAroundAdapter extends BaseQuickAdapter<ShopBean> {
+public class ShopAroundAdapter extends BaseQuickAdapter<ShopDetailBean> {
 
     public ShopAroundAdapter(Context context, List data) {
         super(context, data);
@@ -28,7 +29,7 @@ public class ShopAroundAdapter extends BaseQuickAdapter<ShopBean> {
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, ShopBean item) {
+    protected void convert(BaseViewHolder holder, ShopDetailBean item) {
        holder.setText(R.id.tv_title,item.getShopsName());
 
     }

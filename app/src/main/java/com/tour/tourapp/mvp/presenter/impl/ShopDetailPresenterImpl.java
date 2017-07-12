@@ -2,7 +2,7 @@ package com.tour.tourapp.mvp.presenter.impl;
 
 import com.socks.library.KLog;
 import com.tour.tourapp.api.LoadNewsType;
-import com.tour.tourapp.entity.RspShopDetailBean;
+import com.tour.tourapp.entity.RspShopAllGoodBean;
 import com.tour.tourapp.mvp.interactor.ShopDetailInter;
 import com.tour.tourapp.mvp.interactor.impl.ShopDetailInterImpl;
 import com.tour.tourapp.mvp.presenter.ShopDetailPresenter;
@@ -17,12 +17,14 @@ import javax.inject.Inject;
  * @create_date 2017/5/3
  */
 
-public class ShopDetailPresenterImpl extends BasePresenterImpl<ShopDetailView, RspShopDetailBean> implements ShopDetailPresenter {
+public class ShopDetailPresenterImpl extends BasePresenterImpl<ShopDetailView, RspShopAllGoodBean> implements ShopDetailPresenter {
 
-    private ShopDetailInter<RspShopDetailBean> mNewsInteractor;
+    private ShopDetailInter<RspShopAllGoodBean> mNewsInteractor;
     private int pageNum;
     private int numPerPage;
     private int id;
+    String goodsType;
+    String attType;
     private boolean mIsRefresh = true;
     private boolean misFirstLoad;
 
@@ -55,12 +57,16 @@ public class ShopDetailPresenterImpl extends BasePresenterImpl<ShopDetailView, R
     }
 
     @Override
-    public void setParams(int id) {
+    public void setParams(int id,int pageNum,int numPerPage,String goodsType,String attType) {
         this.id = id;
+        this.pageNum = pageNum;
+        this.numPerPage = numPerPage;
+        this.goodsType = goodsType;
+        this.attType = attType;
     }
 
     @Override
-    public void success(RspShopDetailBean data) {
+    public void success(RspShopAllGoodBean data) {
         misFirstLoad = true;
         KLog.a("ddd----success");
         if (data == null || data.getBody() == null) return;
@@ -86,6 +92,6 @@ public class ShopDetailPresenterImpl extends BasePresenterImpl<ShopDetailView, R
     }
 
     private void loadNewsData() {
-        mSubscription = mNewsInteractor.loadNews(this, id);
+        mSubscription = mNewsInteractor.loadNews(this,String.valueOf(id),goodsType,attType,String.valueOf(pageNum),String.valueOf(numPerPage));
     }
 }

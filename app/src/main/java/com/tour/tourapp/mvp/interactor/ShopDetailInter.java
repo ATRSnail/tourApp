@@ -12,5 +12,5 @@ import rx.Subscription;
 
 public interface ShopDetailInter<T> {
 
-    Subscription loadNews(RequestCallBack<T> listener, int id);
+    Subscription loadNews(RequestCallBack<T> listener,String id ,String goodsType,String attType,String page,String size);
 }

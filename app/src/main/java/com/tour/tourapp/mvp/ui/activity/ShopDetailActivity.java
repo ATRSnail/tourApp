@@ -13,10 +13,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dl7.recycler.helper.RecyclerViewHelper;
 import com.tour.tourapp.R;
 import com.tour.tourapp.api.LoadNewsType;
-import com.tour.tourapp.entity.GoodBean;
-import com.tour.tourapp.entity.ShopDetailBean;
+import com.tour.tourapp.entity.GoodsBean;
+import com.tour.tourapp.entity.ShopAllGoodBean;
 import com.tour.tourapp.mvp.adapter.GoodListAdapter;
-import com.tour.tourapp.mvp.adapter.ShopGoodAdapter;
 import com.tour.tourapp.mvp.presenter.impl.ShopDetailPresenterImpl;
 import com.tour.tourapp.mvp.view.base.ShopDetailView;
 
@@ -44,7 +43,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailView, 
     private View shopDateView;
     private int id;
     private GoodListAdapter shopGoodAdapter;
-    private List<GoodBean> goodBeen;
+    private List<GoodsBean> goodBeen;
 
     public static void launch(Context context, int id) {
         Intent intent = new Intent(context, ShopDetailActivity.class);
@@ -91,7 +90,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailView, 
     }
 
     private void initData() {
-        mGoodListPreter.setParams(id);
+        mGoodListPreter.setParams(id,1,6,"","1");
         mGoodListPreter.attachView(this);
         mPresenter = mGoodListPreter;
         mPresenter.onCreate();
@@ -113,10 +112,10 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailView, 
     }
 
     @Override
-    public void setAreaBeanList(ShopDetailBean shopDetailBean, @LoadNewsType.checker int loadType) {
-        shopGoodAdapter.setNewData(shopDetailBean.getGoods());
-        tv_title.setText(shopDetailBean.getShops().getShopsName());
-        tv_address.setText(shopDetailBean.getShops().getShopsAdds());
+    public void setAreaBeanList(ShopAllGoodBean shopAllGoodBean, @LoadNewsType.checker int loadType) {
+        shopGoodAdapter.setNewData(shopAllGoodBean.getGoods());
+        tv_title.setText(shopAllGoodBean.getShops().getShopsName());
+        tv_address.setText(shopAllGoodBean.getShops().getShopsAdds());
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.tour.tourapp.entity.RspGoodsBean;
 import com.tour.tourapp.entity.Rspclassify;
 import com.tour.tourapp.mvp.interactor.GoodListInter;
 import com.tour.tourapp.mvp.listener.RequestCallBack;
+import com.tour.tourapp.utils.MyUtils;
 import com.tour.tourapp.utils.TransformUtils;
 
 import javax.inject.Inject;
@@ -26,9 +27,9 @@ public class GoodListInterImpl implements GoodListInter<RspGoodsBean> {
     }
 
     @Override
-    public Subscription loadNews(final RequestCallBack<RspGoodsBean> listener,int id) {
+    public Subscription loadNews(final RequestCallBack<RspGoodsBean> listener, int id) {
 
-        RetrofitManager.getInstance(1).getshopGoodByIdObservable(id+"")
+        return   RetrofitManager.getInstance(1).getshopGoodByIdObservable(id + "")
                 .compose(TransformUtils.<RspGoodsBean>defaultSchedulers())
                 .subscribe(new Subscriber<RspGoodsBean>() {
                     @Override
@@ -38,16 +39,16 @@ public class GoodListInterImpl implements GoodListInter<RspGoodsBean> {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        KLog.e(e.toString());
+                        listener.onError(MyUtils.analyzeNetworkError(e));
                     }
 
                     @Override
                     public void onNext(RspGoodsBean rspShopBean) {
-
-                        KLog.d("shop--->" + rspShopBean.toString());
+                        KLog.d(rspShopBean.toString());
                         listener.success(rspShopBean);
                     }
                 });
-        return null;
+
     }
 }

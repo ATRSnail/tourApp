@@ -13,6 +13,7 @@ import com.socks.library.KLog;
 import com.tour.tourapp.R;
 import com.tour.tourapp.api.LoadNewsType;
 import com.tour.tourapp.entity.ShopBean;
+import com.tour.tourapp.entity.ShopDetailBean;
 import com.tour.tourapp.mvp.adapter.ShopAroundAdapter;
 import com.tour.tourapp.mvp.presenter.impl.ShopAroundPresenterImpl;
 import com.tour.tourapp.mvp.view.base.ShopAroundView;
@@ -36,7 +37,7 @@ public class ShopAroundActivity extends BaseActivity implements OnRecyclerViewIt
     @BindView(R.id.news_rv)
     RecyclerView news_rv;
     private ShopAroundAdapter shopAroundAdapter;
-    private List<ShopBean> shopBeen;
+    private List<ShopDetailBean> shopBeen;
     private double latitude, longitude;
 
     @Inject
@@ -91,7 +92,7 @@ public class ShopAroundActivity extends BaseActivity implements OnRecyclerViewIt
 
     @Override
     public void onItemClick(View view, int position) {
-      ShopDetailActivity.launch(ShopAroundActivity.this,9);
+      ShopDetailActivity.launch(ShopAroundActivity.this,11);
     }
 
     @Override
@@ -113,7 +114,7 @@ public class ShopAroundActivity extends BaseActivity implements OnRecyclerViewIt
     }
 
     @Override
-    public void setAreaBeanList(List<ShopBean> areaBeanList, @LoadNewsType.checker int loadType) {
+    public void setAreaBeanList(List<ShopDetailBean> areaBeanList, @LoadNewsType.checker int loadType) {
         shopAroundAdapter.updateItems(areaBeanList);
     }
 }

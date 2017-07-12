@@ -1,13 +1,21 @@
 package com.tour.tourapp.entity;
 
 /**
- * @author xch
- * @version 1.0
- * @create_date 2017/5/9
+ * 商铺详情 的属性
  */
 
-public class ShopAttBean {
-
+public class ShopsAttBean {
+    @Override
+    public String toString() {
+        return "ShopsAttBean{" +
+                "id=" + id +
+                ", utime=" + utime +
+                ", attUrl='" + attUrl + '\'' +
+                ", attType='" + attType + '\'' +
+                ", shopsId=" + shopsId +
+                ", ctime=" + ctime +
+                '}';
+    }
 
     /**
      * id : 10

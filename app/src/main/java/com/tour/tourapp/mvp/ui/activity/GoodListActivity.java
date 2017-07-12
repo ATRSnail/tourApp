@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dl7.recycler.helper.RecyclerViewHelper;
 import com.tour.tourapp.R;
 import com.tour.tourapp.api.LoadNewsType;
-import com.tour.tourapp.entity.GoodBean;
+import com.tour.tourapp.entity.GoodsBean;
 import com.tour.tourapp.mvp.adapter.GoodListAdapter;
 import com.tour.tourapp.mvp.presenter.impl.GoodListPresenterImpl;
 import com.tour.tourapp.mvp.view.base.GoodListView;
@@ -33,7 +33,7 @@ public class GoodListActivity extends BaseActivity implements GoodListView, Base
     GoodListPresenterImpl mGoodListPreter;
     private int id;
     private GoodListAdapter shopGoodAdapter;
-    private List<GoodBean> goodBeen;
+    private List<GoodsBean> goodBeen;
 
     public static void launch(Context context, int id) {
         Intent intent = new Intent(context, GoodListActivity.class);
@@ -92,7 +92,7 @@ public class GoodListActivity extends BaseActivity implements GoodListView, Base
     }
 
     @Override
-    public void setAreaBeanList(List<GoodBean> areaBeanList, @LoadNewsType.checker int loadType) {
+    public void setAreaBeanList(List<GoodsBean> areaBeanList, @LoadNewsType.checker int loadType) {
         shopGoodAdapter.setNewData(areaBeanList);
     }
 

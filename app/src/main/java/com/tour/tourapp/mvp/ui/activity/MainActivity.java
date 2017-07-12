@@ -25,8 +25,8 @@ import com.tour.tourapp.entity.ClusterClickListener;
 import com.tour.tourapp.entity.ClusterItem;
 import com.tour.tourapp.entity.ClusterRender;
 import com.tour.tourapp.entity.RegionItem;
-import com.tour.tourapp.entity.RspSearchBean;
-import com.tour.tourapp.entity.ShopBean;
+import com.tour.tourapp.entity.RspNearbyShopBean;
+import com.tour.tourapp.entity.ShopDetailBean;
 import com.tour.tourapp.utils.TransformUtils;
 
 import java.util.ArrayList;
@@ -256,8 +256,8 @@ public class MainActivity extends CheckPermissionsActivity implements AMap.OnMap
 
     private void initData(final double latitude, final double longitude) {
         RetrofitManager.getInstance(1).getShopsListObservable(latitude + "", longitude + "")
-                .compose(TransformUtils.<RspSearchBean>defaultSchedulers())
-                .subscribe(new Subscriber<RspSearchBean>() {
+                .compose(TransformUtils.<RspNearbyShopBean>defaultSchedulers())
+                .subscribe(new Subscriber<RspNearbyShopBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -269,22 +269,22 @@ public class MainActivity extends CheckPermissionsActivity implements AMap.OnMap
                     }
 
                     @Override
-                    public void onNext(RspSearchBean rspSearchBean) {
+                    public void onNext(RspNearbyShopBean rspNearbyShopBean) {
 
-                        KLog.d("shop--->"+ rspSearchBean.toString());
-                        addShopMaker(rspSearchBean.getBody().getShops(), latitude, longitude);
+                        KLog.d("shop--->"+ rspNearbyShopBean.toString());
+                        addShopMaker(rspNearbyShopBean.getBody().getShops(), latitude, longitude);
                     }
                 });
     }
 
-    private void addShopMaker(final List<ShopBean> shops, final double latitude, final double longitude) {
+    private void addShopMaker(final List<ShopDetailBean> shops, final double latitude, final double longitude) {
         KLog.d("shop--->"+shops.toString());
         //添加测试数据
         new Thread() {
             public void run() {
 
                 List<ClusterItem> items = new ArrayList<>();
-                shops.add(0,new ShopBean(latitude+"",longitude+""));
+                shops.add(0,new ShopDetailBean(latitude+"",longitude+""));
                 //随机10000个点
                 for (int i = 0; i < shops.size(); i++) {
 
