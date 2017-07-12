@@ -2,7 +2,7 @@ package com.tour.tourapp.mvp.view.base;
 
 import com.tour.tourapp.api.LoadNewsType;
 import com.tour.tourapp.entity.GoodsClassify;
-import com.tour.tourapp.entity.ShopGood;
+import com.tour.tourapp.entity.GoodsDetailBean;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface CateView extends BaseView{
 
-    void setShopGoodList(List<ShopGood> shopGoods, @LoadNewsType.checker int loadType);
+    void setShopGoodList(List<GoodsDetailBean> shopGoodBeen, @LoadNewsType.checker int loadType);
 
     void setGoodsClassifyList(List<GoodsClassify> goodsClassify, @LoadNewsType.checker int loadType);
 }

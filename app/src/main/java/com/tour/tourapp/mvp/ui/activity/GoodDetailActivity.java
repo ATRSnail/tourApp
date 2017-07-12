@@ -5,6 +5,9 @@ import android.content.Intent;
 
 import com.tour.tourapp.R;
 
+/**
+ * 商品详情页
+ */
 public class GoodDetailActivity extends BaseActivity {
 
     private static final String GOOD_ID = "good_id";
@@ -26,7 +29,7 @@ public class GoodDetailActivity extends BaseActivity {
 
     @Override
     public void initViews() {
-
+        setCustomTitle("商品详情页");
     }
 
 }

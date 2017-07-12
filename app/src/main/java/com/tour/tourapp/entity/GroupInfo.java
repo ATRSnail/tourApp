@@ -1,5 +1,8 @@
 package com.tour.tourapp.entity;
 
+/**
+ * 购物车
+ */
 public class GroupInfo extends BaseInfo
 {
 	public GroupInfo()

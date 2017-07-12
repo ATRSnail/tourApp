@@ -1,7 +1,7 @@
 package com.tour.tourapp.mvp.view.base;
 
 import com.tour.tourapp.api.LoadNewsType;
-import com.tour.tourapp.entity.GoodsBean;
+import com.tour.tourapp.entity.GoodsDetailBean;
 
 import java.util.List;
 
@@ -13,5 +13,5 @@ import java.util.List;
 
 public interface GoodListView extends BaseView{
 
-    void setAreaBeanList(List<GoodsBean> areaBeanList, @LoadNewsType.checker int loadType);
+    void setAreaBeanList(List<GoodsDetailBean> areaBeanList, @LoadNewsType.checker int loadType);
 }

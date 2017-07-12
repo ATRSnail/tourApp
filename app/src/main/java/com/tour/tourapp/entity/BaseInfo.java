@@ -1,6 +1,8 @@
 package com.tour.tourapp.entity;
 
-
+/**
+ * 购物车
+ */
 public class BaseInfo
 {
 	protected String Id;

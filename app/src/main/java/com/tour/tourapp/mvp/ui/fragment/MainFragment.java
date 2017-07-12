@@ -31,11 +31,12 @@ import com.tour.tourapp.api.RetrofitManager;
 import com.tour.tourapp.entity.ClusterClickListener;
 import com.tour.tourapp.entity.ClusterItem;
 import com.tour.tourapp.entity.ClusterRender;
-import com.tour.tourapp.entity.GoodsBean;
+
+import com.tour.tourapp.entity.GoodsDetailBean;
 import com.tour.tourapp.entity.RegionItem;
 import com.tour.tourapp.entity.RspGoodsBean;
 import com.tour.tourapp.entity.RspNearbyShopBean;
-import com.tour.tourapp.entity.ShopBean;
+
 import com.tour.tourapp.entity.ShopDetailBean;
 import com.tour.tourapp.mvp.ui.activity.GoodDetailActivity;
 import com.tour.tourapp.mvp.ui.activity.GoodListActivity;
@@ -292,7 +293,7 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
                 });
     }
 
-    private void fillDate(String shopName, List<GoodsBean> goodBeen) {
+    private void fillDate(String shopName, List<GoodsDetailBean> goodBeen) {
         tv_shop_name.setText(shopName);
         ImageLoader.loadFit(getContext(), "", img_shop, R.mipmap.ic_launcher);
     }

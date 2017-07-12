@@ -1,7 +1,7 @@
 package com.tour.tourapp.entity;
 
 /**
- * 根据商铺id，查询商铺的商品信息
+ * 根据商铺id查询该商铺下所有商品
  * 包含的商铺 16个信息
  */
 

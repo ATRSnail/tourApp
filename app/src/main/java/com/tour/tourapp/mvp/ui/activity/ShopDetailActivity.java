@@ -13,7 +13,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dl7.recycler.helper.RecyclerViewHelper;
 import com.tour.tourapp.R;
 import com.tour.tourapp.api.LoadNewsType;
-import com.tour.tourapp.entity.GoodsBean;
+
+import com.tour.tourapp.entity.GoodsDetailBean;
 import com.tour.tourapp.entity.ShopAllGoodBean;
 import com.tour.tourapp.mvp.adapter.GoodListAdapter;
 import com.tour.tourapp.mvp.presenter.impl.ShopDetailPresenterImpl;
@@ -43,7 +44,7 @@ public class ShopDetailActivity extends BaseActivity implements ShopDetailView, 
     private View shopDateView;
     private int id;
     private GoodListAdapter shopGoodAdapter;
-    private List<GoodsBean> goodBeen;
+    private List<GoodsDetailBean> goodBeen;
 
     public static void launch(Context context, int id) {
         Intent intent = new Intent(context, ShopDetailActivity.class);

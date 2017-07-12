@@ -12,11 +12,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.tour.tourapp.R;
 import com.tour.tourapp.api.ApiConstants;
-import com.tour.tourapp.entity.ShopGood;
+import com.tour.tourapp.entity.GoodsDetailBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +24,9 @@ import java.util.List;
  */
 
 public class CustomAdapter extends BaseAdapter {
-    List<ShopGood> data= new ArrayList<>();
+    List<GoodsDetailBean> data= new ArrayList<>();
     Context context ;
-    public CustomAdapter(Context context, List<ShopGood> data) {
+    public CustomAdapter(Context context, List<GoodsDetailBean> data) {
      this.data.addAll(data);
         this.context = context;
     }
@@ -63,7 +61,7 @@ public class CustomAdapter extends BaseAdapter {
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
-        ShopGood item = data.get(position);
+        GoodsDetailBean item = data.get(position);
         holder.name.setText(item.getGoodsName());
         holder.price.setText(item.getPriceS()+"");
         Glide.with(context)
@@ -77,9 +75,9 @@ public class CustomAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void setNewData(List<ShopGood> shopGoods) {
+    public void setNewData(List<GoodsDetailBean> shopGoodBeen) {
         this.data.clear();
-        this.data.addAll(shopGoods);
+        this.data.addAll(shopGoodBeen);
     }
 
     static  class  ViewHolder{

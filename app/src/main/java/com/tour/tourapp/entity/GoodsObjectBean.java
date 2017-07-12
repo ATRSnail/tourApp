@@ -10,13 +10,13 @@ import java.util.List;
 
 public class GoodsObjectBean {
 
-    private List<GoodsBean> goods;
+    private List<GoodsDetailBean> goods;
 
-    public List<GoodsBean> getGoods() {
+    public List<GoodsDetailBean> getGoods() {
         return goods;
     }
 
-    public void setGoods(List<GoodsBean> goods) {
+    public void setGoods(List<GoodsDetailBean> goods) {
         this.goods = goods;
     }
 

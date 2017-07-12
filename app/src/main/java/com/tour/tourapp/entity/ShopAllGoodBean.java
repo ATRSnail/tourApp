@@ -10,7 +10,7 @@ public class ShopAllGoodBean {
 
     private ShopBean shops;//商铺详情
 
-    private List<GoodsBean> goods;//商铺下商品列表
+    private List<GoodsDetailBean> goods;//商铺下商品列表
 
     public ShopBean getShops() {
         return shops;
@@ -20,11 +20,11 @@ public class ShopAllGoodBean {
         this.shops = shops;
     }
 
-    public List<GoodsBean> getGoods() {
+    public List<GoodsDetailBean> getGoods() {
         return goods;
     }
 
-    public void setGoods(List<GoodsBean> goods) {
+    public void setGoods(List<GoodsDetailBean> goods) {
         this.goods = goods;
     }
 

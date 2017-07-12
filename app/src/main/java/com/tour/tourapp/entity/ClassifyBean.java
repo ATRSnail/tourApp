@@ -8,15 +8,15 @@ import java.util.List;
  */
 
 public class ClassifyBean {
-    List<ShopGood> shopGoods;//商品信息列表
+    List<GoodsDetailBean> shopGoods;//商品信息列表
 
     List<GoodsClassify> goodsClassify;//商品的分类状态列表
 
-    public List<ShopGood> getShopGoods() {
+    public List<GoodsDetailBean> getShopGoods() {
         return shopGoods;
     }
 
-    public void setShopGoods(List<ShopGood> shopGoods) {
+    public void setShopGoods(List<GoodsDetailBean> shopGoods) {
         this.shopGoods = shopGoods;
     }
 

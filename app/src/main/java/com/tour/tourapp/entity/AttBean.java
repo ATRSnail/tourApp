@@ -1,28 +1,41 @@
 package com.tour.tourapp.entity;
 
 /**
- * @author xch
- * @version 1.0
- * @create_date 2017/5/3
+ *   商品详情的att字段
  */
 
-public class AttrBean {
+public class AttBean {
+
+    @Override
+    public String toString() {
+        return "AttBean{" +
+                "id=" + id +
+                ", utime=" + utime +
+                ", goodsId=" + goodsId +
+                ", attUrl='" + attUrl + '\'' +
+                ", attType='" + attType + '\'' +
+                ", ctime=" + ctime +
+                '}';
+    }
 
     /**
-     * id : 15
-     * utime : null
-     * goodsId : 4
-     * attUrl : rqerq
+     * id : 24
+     * utime : 1495177489000
+     * goodsId : 22
+     * attUrl : /shopsGoods/8c40732f9be64034960d8d10e17ae3a6.jpg
      * attType : 0001
-     * ctime : null
+     * ctime : 1495177489000
      */
 
+
+
+
     private int id;
-    private Object utime;
+    private long utime;
     private int goodsId;
     private String attUrl;
     private String attType;
-    private Object ctime;
+    private long ctime;
 
     public int getId() {
         return id;
@@ -32,11 +45,11 @@ public class AttrBean {
         this.id = id;
     }
 
-    public Object getUtime() {
+    public long getUtime() {
         return utime;
     }
 
-    public void setUtime(Object utime) {
+    public void setUtime(long utime) {
         this.utime = utime;
     }
 
@@ -64,23 +77,11 @@ public class AttrBean {
         this.attType = attType;
     }
 
-    public Object getCtime() {
+    public long getCtime() {
         return ctime;
     }
 
-    public void setCtime(Object ctime) {
+    public void setCtime(long ctime) {
         this.ctime = ctime;
-    }
-
-    @Override
-    public String toString() {
-        return "AttrBean{" +
-                "id=" + id +
-                ", utime=" + utime +
-                ", goodsId=" + goodsId +
-                ", attUrl='" + attUrl + '\'' +
-                ", attType='" + attType + '\'' +
-                ", ctime=" + ctime +
-                '}';
     }
 }

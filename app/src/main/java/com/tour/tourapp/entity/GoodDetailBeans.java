@@ -6,20 +6,20 @@ import java.util.List;
  * Created by ATRSnail on 2017/5/25.
  */
 
-public class GoodDetailBean {
-    List<ShopGood> shopGoods;
+public class GoodDetailBeans {
+    List<GoodsDetailBean> shopGoods;
 
-    public List<ShopGood> getShopGoods() {
+    public List<GoodsDetailBean> getShopGoods() {
         return shopGoods;
     }
 
-    public void setShopGoods(List<ShopGood> shopGoods) {
+    public void setShopGoods(List<GoodsDetailBean> shopGoods) {
         this.shopGoods = shopGoods;
     }
 
     @Override
     public String toString() {
-        return "GoodDetailBean{" +
+        return "GoodDetailBeans{" +
                 "shopGoods=" + shopGoods +
                 '}';
     }

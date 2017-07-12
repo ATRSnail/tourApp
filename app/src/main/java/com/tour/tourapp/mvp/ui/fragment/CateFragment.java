@@ -20,7 +20,7 @@ import com.tour.tourapp.App;
 import com.tour.tourapp.R;
 import com.tour.tourapp.api.LoadNewsType;
 import com.tour.tourapp.entity.GoodsClassify;
-import com.tour.tourapp.entity.ShopGood;
+import com.tour.tourapp.entity.GoodsDetailBean;
 import com.tour.tourapp.mvp.adapter.GoodsClassifyAdapter;
 import com.tour.tourapp.mvp.adapter.ShopGoodAdapter;
 import com.tour.tourapp.mvp.presenter.impl.CatePresenterImpl;
@@ -42,18 +42,17 @@ import butterknife.OnClick;
  * 分类--碎片
  */
 public class CateFragment extends BaseFragment implements BaseQuickAdapter.OnRecyclerViewItemClickListener
-        , CateView,SwipeRefreshLayout.OnRefreshListener,AdapterView.OnItemClickListener {
+        , CateView, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
 
     private ShopGoodAdapter shopGoodAdapter;
     private GoodsClassifyAdapter goodsClassifyAdapter;
-    private List<ShopGood> shopGoods;
+    private List<GoodsDetailBean> shopGoodBeen;
     List<GoodsClassify> goodsClassify;
 
     @BindView(R.id.cate_gv)
     GridView gridView;
     @BindView(R.id.cate_sr)
     SwipeRefreshLayout swipe_refresh;
-
 
 
     @Inject
@@ -63,6 +62,7 @@ public class CateFragment extends BaseFragment implements BaseQuickAdapter.OnRec
 
     private PopupWindow popupWindow;//左侧侧边栏
     private View popupView;
+    //分类的顶部栏
     @BindView(R.id.cate_top)
     LinearLayout linearLayout;
 
@@ -80,21 +80,18 @@ public class CateFragment extends BaseFragment implements BaseQuickAdapter.OnRec
     }
 
 
-
     @Override
     public int getLayoutId() {
         return R.layout.fragment_catefragment;
     }
 
 
-
-
     /**
      * 初始化initGridView
      */
     private void initGridView() {
-        shopGoods = new ArrayList<>();
-        shopGoodAdapter = new ShopGoodAdapter(mActivity,shopGoods);
+        shopGoodBeen = new ArrayList<>();
+        shopGoodAdapter = new ShopGoodAdapter(mActivity, shopGoodBeen);
         gridView.setOnItemClickListener(this);
         gridView.setAdapter(shopGoodAdapter);
     }
@@ -112,33 +109,31 @@ public class CateFragment extends BaseFragment implements BaseQuickAdapter.OnRec
     }
 
     private void initPopupWindow() {
-        popupView = LayoutInflater.from(mActivity).inflate(R.layout.sidebar,null,false);
-        popupWindow = new PopupWindow(popupView, ScreenUtils.getScreenWidth(mActivity)/5*2,
-                ViewGroup.LayoutParams.MATCH_PARENT,true);
+        popupView = LayoutInflater.from(mActivity).inflate(R.layout.sidebar, null, false);
+        popupWindow = new PopupWindow(popupView, ScreenUtils.getScreenWidth(mActivity) / 5 * 2,
+                ViewGroup.LayoutParams.MATCH_PARENT, true);
         //点击外部消失
         popupWindow.setOutsideTouchable(true);
         //设置可以点击
         popupWindow.setTouchable(true);
         popupWindow.setAnimationStyle(R.style.AnimationFade);
-        RecyclerView recyclerView  = (RecyclerView) popupView.findViewById(R.id.sidebar_rv);
+        RecyclerView recyclerView = (RecyclerView) popupView.findViewById(R.id.sidebar_rv);
         initRecyclerView(recyclerView);
     }
 
     private void initRecyclerView(RecyclerView recyclerView) {
         goodsClassify = new ArrayList<>();
-        goodsClassifyAdapter = new GoodsClassifyAdapter(R.layout.classify_item,goodsClassify);
-        RecyclerViewHelper.initRecyclerViewV(mActivity,recyclerView,true,goodsClassifyAdapter);
+        goodsClassifyAdapter = new GoodsClassifyAdapter(R.layout.classify_item, goodsClassify);
+        RecyclerViewHelper.initRecyclerViewV(mActivity, recyclerView, true, goodsClassifyAdapter);
         goodsClassifyAdapter.setOnRecyclerViewItemClickListener(this);
         recyclerView.setAdapter(goodsClassifyAdapter);
     }
 
 
-
-
     @OnClick({R.id.iv_back})
-    public void onClick(View view){
-        switch(view.getId()){
-            case R.id.iv_back :
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
                 openPopWindow();
                 break;
         }
@@ -146,12 +141,10 @@ public class CateFragment extends BaseFragment implements BaseQuickAdapter.OnRec
 
 
     public void openPopWindow() {
-            popupWindow.showAsDropDown(linearLayout);
-            popupWindow.showAtLocation(popupView, Gravity.LEFT, 0, 0);
+        popupWindow.showAsDropDown(linearLayout);
+        popupWindow.showAtLocation(popupView, Gravity.LEFT, 0, 0);
 
     }
-
-
 
 
     @Override
@@ -169,9 +162,9 @@ public class CateFragment extends BaseFragment implements BaseQuickAdapter.OnRec
 
     @Override
     public void showMsg(String msg) {
-        KLog.a("=========="+msg);
-        if (NetUtil.isNetworkAvailable(App.getAppContext())){
-            if (msg!=null){
+        KLog.a("==========" + msg);
+        if (NetUtil.isNetworkAvailable(App.getAppContext())) {
+            if (msg != null) {
                 Toast.makeText(App.getAppContext(), msg,
                         Toast.LENGTH_SHORT).show();
             }
@@ -181,16 +174,15 @@ public class CateFragment extends BaseFragment implements BaseQuickAdapter.OnRec
 
 
     /**
-     * @param shopGoods 商品的信息
+     * @param shopGoodBeen 商店商品的信息
      * @param loadType
      */
     @Override
-    public void setShopGoodList(List<ShopGood> shopGoods, @LoadNewsType.checker int loadType) {
-        switch (loadType){
+    public void setShopGoodList(List<GoodsDetailBean> shopGoodBeen, @LoadNewsType.checker int loadType) {
+        switch (loadType) {
             case LoadNewsType.TYPE_REFRESH_SUCCESS:
                 swipe_refresh.setRefreshing(false);
-                shopGoodAdapter.setNewData(shopGoods);
-                shopGoodAdapter.notifyDataSetChanged();
+                shopGoodAdapter.setNewData(shopGoodBeen);
                 break;
             case LoadNewsType.TYPE_REFRESH_ERROR:
                 swipe_refresh.setRefreshing(false);
@@ -199,29 +191,27 @@ public class CateFragment extends BaseFragment implements BaseQuickAdapter.OnRec
     }
 
     /**
-     *
-     * @param goodsClassify  商品的分类状态列表
+     * @param goodsClassify 商品的分类状态列表
      * @param loadType
      */
     @Override
     public void setGoodsClassifyList(List<GoodsClassify> goodsClassify, @LoadNewsType.checker int loadType) {
-        switch (loadType){
-        case LoadNewsType.TYPE_REFRESH_SUCCESS:
-        swipe_refresh.setRefreshing(false);
-        goodsClassifyAdapter.setNewData(goodsClassify);
-        break;
-        case LoadNewsType.TYPE_REFRESH_ERROR:
-        swipe_refresh.setRefreshing(false);
-        break;
-    }
+        switch (loadType) {
+            case LoadNewsType.TYPE_REFRESH_SUCCESS:
+                goodsClassifyAdapter.setNewData(goodsClassify);
+                break;
+
+            case LoadNewsType.TYPE_REFRESH_ERROR:
+                break;
+        }
     }
 
     //点击侧滑栏事件
     @Override
     public void onItemClick(View view, int i) {
-      goodsClassifyAdapter.setOnClickPostion(i);
-     GoodsClassify item=  goodsClassifyAdapter.getData().get(i);
-        if (item!=null){
+        goodsClassifyAdapter.setOnClickPostion(i);
+        GoodsClassify item = goodsClassifyAdapter.getData().get(i);
+        if (item != null) {
             UT.show(item.getName());
         }
     }
