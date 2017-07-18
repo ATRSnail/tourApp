@@ -8,6 +8,7 @@ import com.tour.tourapp.di.scope.ContextLife;
 import com.tour.tourapp.di.scope.PerFragment;
 import com.tour.tourapp.mvp.ui.fragment.CateFragment;
 import com.tour.tourapp.mvp.ui.fragment.MainFragment;
+import com.tour.tourapp.mvp.ui.fragment.MainTestFragment;
 import com.tour.tourapp.mvp.ui.fragment.MemberFragment;
 import com.tour.tourapp.mvp.ui.fragment.ShopCarFragment;
 
@@ -30,6 +31,8 @@ public interface FragmentComponent {
     Activity getActivity();
 
     void inject(MainFragment mainFragment);
+
+    void inject(MainTestFragment mainTestFragment);
 
     void inject(CateFragment cateFragment);
 

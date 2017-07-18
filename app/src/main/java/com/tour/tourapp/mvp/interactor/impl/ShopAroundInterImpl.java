@@ -28,7 +28,7 @@ public class ShopAroundInterImpl implements ShopAroundInter<RspNearbyShopBean> {
     @Override
     public Subscription loadNews(final RequestCallBack<RspNearbyShopBean> listener, String latitude, String longitude) {
 
-        RetrofitManager.getInstance(1).getShopsListObservable(latitude, longitude)
+        RetrofitManager.getInstance(1).getNearbyShops(latitude, longitude)
                 .compose(TransformUtils.<RspNearbyShopBean>defaultSchedulers())
                 .subscribe(new Subscriber<RspNearbyShopBean>() {
                     @Override

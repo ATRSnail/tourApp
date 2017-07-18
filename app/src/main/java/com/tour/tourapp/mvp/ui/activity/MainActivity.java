@@ -255,7 +255,7 @@ public class MainActivity extends CheckPermissionsActivity implements AMap.OnMap
     }
 
     private void initData(final double latitude, final double longitude) {
-        RetrofitManager.getInstance(1).getShopsListObservable(latitude + "", longitude + "")
+        RetrofitManager.getInstance(1).getNearbyShops(latitude + "", longitude + "")
                 .compose(TransformUtils.<RspNearbyShopBean>defaultSchedulers())
                 .subscribe(new Subscriber<RspNearbyShopBean>() {
                     @Override

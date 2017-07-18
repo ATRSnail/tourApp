@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.tour.tourapp.R;
 import com.tour.tourapp.mvp.ui.fragment.CateFragment;
 import com.tour.tourapp.mvp.ui.fragment.MainFragment;
+import com.tour.tourapp.mvp.ui.fragment.MainTestFragment;
 import com.tour.tourapp.mvp.ui.fragment.MemberFragment;
 import com.tour.tourapp.mvp.ui.fragment.ShopCarFragment;
 import com.tour.tourapp.utils.UT;
@@ -112,11 +113,11 @@ public class MainTabActivity extends CheckPermissionsActivity {
     }
 
     private void chageIndex(int index) {
-        String title="";
+        String title = "";
 
         switch (index) {
             case 0:
-               hideToolBar();
+                hideToolBar();
                 break;
             case 1:
                 hideToolBar();
@@ -124,7 +125,7 @@ public class MainTabActivity extends CheckPermissionsActivity {
             case 2:
                 if (mToolbar != null)
                     mToolbar.setVisibility(View.VISIBLE);
-                title= "购物车";
+                title = "购物车";
                 break;
             case 3:
                 hideToolBar();
@@ -158,7 +159,9 @@ public class MainTabActivity extends CheckPermissionsActivity {
 
     private Fragment instantFragment(int currIndex) {
         switch (currIndex) {
-            case 0:return new MainFragment();
+            case 0:
+                return new MainTestFragment();
+//                return new MainFragment();
 //            case 0:return new MemberFragment();
             case 1:
                 return new CateFragment();
@@ -176,8 +179,8 @@ public class MainTabActivity extends CheckPermissionsActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if ((System.currentTimeMillis() - mExitTime) > 2000) {
                 // 如果两次按键时间间隔大于2000毫秒，则不退出
-                UT.showNormal( getResources().getString(R.string.second_back_hint));
-                 mExitTime = System.currentTimeMillis();//更新mExitTime
+                UT.showNormal(getResources().getString(R.string.second_back_hint));
+                mExitTime = System.currentTimeMillis();//更新mExitTime
             } else {
                 android.os.Process.killProcess(android.os.Process.myPid());
                 System.exit(0);

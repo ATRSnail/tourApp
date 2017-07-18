@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -37,12 +39,14 @@ import com.tour.tourapp.entity.RegionItem;
 import com.tour.tourapp.entity.RspGoodsBean;
 import com.tour.tourapp.entity.RspNearbyShopBean;
 
+import com.tour.tourapp.entity.RspShopAllGoodBean;
 import com.tour.tourapp.entity.ShopDetailBean;
 import com.tour.tourapp.mvp.ui.activity.GoodDetailActivity;
-import com.tour.tourapp.mvp.ui.activity.GoodListActivity;
+
 import com.tour.tourapp.mvp.ui.activity.SearchActivity;
 import com.tour.tourapp.mvp.ui.activity.ShopAroundActivity;
 import com.tour.tourapp.utils.ImageLoader;
+import com.tour.tourapp.utils.SHA1Utils;
 import com.tour.tourapp.utils.TransformUtils;
 import com.tour.tourapp.utils.UT;
 
@@ -58,9 +62,9 @@ import rx.Subscriber;
  * 首页地图
  */
 
-public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedListener
-        , ClusterClickListener, ClusterRender, LocationSource {
+public class MainFragment extends BaseLazyFragment implements ClusterClickListener, ClusterRender, LocationSource {
 
+    //定义了一个地图view
     @BindView(R.id.map)
     MapView mMapView;
     private ImageView img_shop;
@@ -70,11 +74,13 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
     @BindView(R.id.img_search)
     ImageView img_search;
 
+    //初始化地图控制器对象
     private AMap mAMap;
     private ClusterOverlay mClusterOverlay;
     private int clusterRadius = 50;
+
     private AMapLocationClient locationClient = null;
-    private AMapLocationClientOption locationOption = new AMapLocationClientOption();
+    private AMapLocationClientOption locationOption;
     private double latitude, longitude;
 
     private PopupWindow popupWindow;
@@ -92,12 +98,15 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
 
     @Override
     public void initViews(View view) {
+        //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
         mMapView.onCreate(savedInstanceState);
         init();
+        initMap();
         initLocation();
         startLocation();
         initPop();
     }
+
 
     @Override
     public int getLayoutId() {
@@ -110,17 +119,6 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
     }
 
     private void init() {
-        if (mAMap == null) {
-            // 初始化地图
-            mAMap = mMapView.getMap();
-//                    mAMap.setOnMapLoadedListener(this);
-            // 设置定位监听
-            mAMap.setLocationSource(this);
-            // 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
-            mAMap.setMyLocationEnabled(true);
-            // 设置定位的类型为定位模式，有定位、跟随或地图根据面向方向旋转几种
-            mAMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
-        }
         img_around.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,6 +131,21 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
                 SearchActivity.launch(mActivity);
             }
         });
+    }
+
+    //实现地图的定位蓝点
+    private void initMap() {
+        if (mAMap == null) {
+            // 初始化地图
+            mAMap = mMapView.getMap();
+            // 设置定位监听
+            mAMap.setLocationSource(this);
+            // 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
+            mAMap.setMyLocationEnabled(true);
+            // 设置定位的类型为定位模式，有定位、跟随或地图根据面向方向旋转几种
+            mAMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
+        }
+
 
     }
 
@@ -158,22 +171,15 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
      * @since 2.8.0
      */
     private AMapLocationClientOption getDefaultOption() {
-        AMapLocationClientOption mOption = new AMapLocationClientOption();
-
-        //设置是否允许模拟位置,默认为false，不允许模拟位置
-        mOption.setMockEnable(true);
-
-        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
-        mOption.setGpsFirst(true);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
-        mOption.setInterval(20000);//连续定位模式，设置定位间隔。默认为2秒
-        mOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是true
-        mOption.setWifiScan(true); //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
-        mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
-        mOption.setLocationCacheEnable(true); //可选，设置是否使用缓存定位，默认为true
-        AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);//可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
+        locationOption = new AMapLocationClientOption();
 
 
-        return mOption;
+        //可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
+        locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //设置定位间隔,单位毫秒,默认为2000ms，最低1000ms。
+        locationOption.setInterval(20000);
+
+        return locationOption;
     }
 
     /**
@@ -224,8 +230,31 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        //在activity执行onResume时执行mMapView.onResume ()，重新绘制加载地图
+        mMapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
+        mMapView.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
+        mMapView.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
+        //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
+        mMapView.onDestroy();
         destroyLocation();
     }
 
@@ -241,11 +270,6 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
         }
     }
 
-
-    @Override
-    public void onMapLoaded() {
-
-    }
 
     private void mapLoad(final double latitude, final double longitude) {
         this.latitude = latitude;
@@ -272,9 +296,9 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
     public void onClick(final Marker marker, List<ClusterItem> clusterItems) {
         UT.show(marker.getTitle());
         openPopWindow();
-        RetrofitManager.getInstance(1).getshopGoodByIdObservable("8")
-                .compose(TransformUtils.<RspGoodsBean>defaultSchedulers())
-                .subscribe(new Subscriber<RspGoodsBean>() {
+        RetrofitManager.getInstance(1).getGoodsByShopId("8","","3","1","1000")
+                .compose(TransformUtils.<RspShopAllGoodBean>defaultSchedulers())
+                .subscribe(new Subscriber<RspShopAllGoodBean>() {
                     @Override
                     public void onCompleted() {
                         KLog.d("onCompleted");
@@ -286,7 +310,7 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
                     }
 
                     @Override
-                    public void onNext(RspGoodsBean rspGoodsBean) {
+                    public void onNext(RspShopAllGoodBean rspGoodsBean) {
                         KLog.d("shop--->" + rspGoodsBean.toString());
                         fillDate(marker.getTitle(), rspGoodsBean.getBody().getGoods());
                     }
@@ -300,7 +324,6 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
 
     @Override
     public void activate(OnLocationChangedListener onLocationChangedListener) {
-
     }
 
     @Override
@@ -310,7 +333,7 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
 
     private void initData(final double latitude, final double longitude) {
         KLog.d("shop--->" + latitude);
-        RetrofitManager.getInstance(1).getShopsListObservable(latitude + "", longitude + "")
+        RetrofitManager.getInstance(1).getNearbyShops(latitude + "", longitude + "")
                 .compose(TransformUtils.<RspNearbyShopBean>defaultSchedulers())
                 .subscribe(new Subscriber<RspNearbyShopBean>() {
                     @Override
@@ -334,7 +357,6 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
                     }
                 });
     }
-
 
 
     private void addShopMaker(final List<ShopDetailBean> shops, final double latitude, final double longitude) {
@@ -394,7 +416,6 @@ public class MainFragment extends BaseLazyFragment implements AMap.OnMapLoadedLi
         tv_shop_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GoodListActivity.launch(mActivity, 9);
             }
         });
     }

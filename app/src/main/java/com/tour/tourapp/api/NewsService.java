@@ -51,7 +51,7 @@ public interface NewsService {
 
     @FormUrlEncoded
     @POST(NEARBY_SHOP)
-    Observable<RspNearbyShopBean> getShopsList(@FieldMap Map<String, String> map);
+    Observable<RspNearbyShopBean> getNearbyShops(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
     @POST(Add_Address)
@@ -141,9 +141,7 @@ public interface NewsService {
     Observable<RspOrderBean> queryOrder(@FieldMap Map<String,String> map);
 
 
-    @FormUrlEncoded
-    @POST(GOODS_IN_SHOP)
-    Observable<RspGoodsBean> shopGoodById(@FieldMap Map<String, String> map);
+
 
 
 }

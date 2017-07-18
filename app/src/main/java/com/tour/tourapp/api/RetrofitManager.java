@@ -17,6 +17,7 @@ import com.tour.tourapp.entity.RspUserAllAdd;
 import com.tour.tourapp.entity.RspUserBean;
 import com.tour.tourapp.entity.Rspclassify;
 import com.tour.tourapp.entity.base.BaseRspObj;
+import com.tour.tourapp.utils.CheckDataIsEmpty;
 import com.tour.tourapp.utils.NetUtil;
 
 import java.io.File;
@@ -136,12 +137,12 @@ public class RetrofitManager {
 
     /************************************ API *******************************************/
 
-    public Observable<RspNearbyShopBean> getShopsListObservable(String lats, String longs) {
+    public Observable<RspNearbyShopBean> getNearbyShops(String lats, String longs) {
         Map<String, String> map = new HashMap<>();
         map.put("lats", lats);
         map.put("longs", longs);
         KLog.a(map.toString());
-        return mNewsService.getShopsList(map);
+        return mNewsService.getNearbyShops(map);
     }
 
     public Observable<BaseRspObj> addAddress(String reName, String rePhone, String adds, String aPPuserId) {
@@ -155,11 +156,10 @@ public class RetrofitManager {
     }
 
     /**
-     *
-     * @param reName  收件人姓名
-     * @param rePhone  收件人电话
-     * @param adds  收件人地址
-     * @param defaultAddress  设置默认地址 0是非默认, 1 是默认状态
+     * @param reName         收件人姓名
+     * @param rePhone        收件人电话
+     * @param adds           收件人地址
+     * @param defaultAddress 设置默认地址 0是非默认, 1 是默认状态
      * @param id
      * @return
      */
@@ -189,7 +189,6 @@ public class RetrofitManager {
     }
 
     /**
-     *
      * @param aPPUserId 手机用户id
      * @return
      */
@@ -219,7 +218,8 @@ public class RetrofitManager {
     /**
      * @param id        商铺id
      * @param goodsType 商品类别，非必需
-     * @param attType   附件类型
+     * @param attType   附件类型  不填写就是查询所有，建议传入
+     *                  附件类型 1经营证件图片 2店铺缩略图 3店铺介绍图(多张) 4 office文件
      * @param page      页数
      * @param size      条数
      * @return
@@ -227,8 +227,9 @@ public class RetrofitManager {
     public Observable<RspShopAllGoodBean> getGoodsByShopId(String id, String goodsType, String attType, String page, String size) {
         Map<String, String> map = new HashMap<>();
         map.put("id", id);
-        if (!TextUtils.isEmpty(goodsType) && "".equals(goodsType))
+        if (!CheckDataIsEmpty.checkString(goodsType))
             map.put("goodsType", goodsType);
+        if (!CheckDataIsEmpty.checkString(attType))
         map.put("attType", attType);
         map.put("page", page);
         map.put("size", size);
@@ -434,10 +435,4 @@ public class RetrofitManager {
     }
 
 
-    public Observable<RspGoodsBean> getshopGoodByIdObservable(String id) {
-        Map<String, String> map = new HashMap<>();
-        map.put("id", id);
-        KLog.a(map.toString());
-        return mNewsService.shopGoodById(map);
-    }
 }

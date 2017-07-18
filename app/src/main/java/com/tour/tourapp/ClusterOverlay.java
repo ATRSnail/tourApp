@@ -23,6 +23,7 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.animation.AlphaAnimation;
 import com.amap.api.maps.model.animation.Animation;
+import com.socks.library.KLog;
 import com.tour.tourapp.entity.Cluster;
 import com.tour.tourapp.entity.ClusterClickListener;
 import com.tour.tourapp.entity.ClusterItem;

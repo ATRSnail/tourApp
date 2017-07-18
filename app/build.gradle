@@ -11,18 +11,13 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        //引入的Libary与现有的工程中的某些Libs重复了
+        multiDexEnabled true
         ndk {
             //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
-            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64'
         }
 
-//        manifestPlaceholders = [
-//                JPUSH_PKGNAME: applicationId,
-//                JPUSH_APPKEY : "b83445fc11a8ca010756b05d",//JPush上注册包的名对应的appkey.
-//                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
-//        ]
     }
     buildTypes {
         debug {
@@ -52,6 +47,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -77,10 +73,8 @@ dependencies {
     compile 'com.daimajia.slider:library:1.1.5'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'cn.pedant.sweetalert:library:1.3'
-//    compile 'cn.jiguang.sdk:jpush:3.0.0'
-//    compile 'cn.jiguang.sdk:jcore:1.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:support-v4:25.3.1'
+//    compile 'com.android.support:support-v4:25.3.1'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
     apt 'com.google.dagger:dagger-compiler:2.2'
