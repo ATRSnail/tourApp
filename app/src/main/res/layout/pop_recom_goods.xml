@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--PopupWindow 推荐商品布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/img_recom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/default_image" />
+
+            <TextView
+                android:id="@+id/name_recomgoods"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:maxEms="10"
+                tools:text="商品名称（不超过10个字）"
+                android:textSize="14sp" />
+</LinearLayout>

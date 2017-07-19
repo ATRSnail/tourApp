@@ -79,4 +79,9 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
     apt 'com.google.dagger:dagger-compiler:2.2'
     provided 'org.glassfish:javax.annotation:10.0-b28'
+
+     //ForListView通用的 Adapter
+       compile 'com.zhy:base-adapter:3.0.3'
+
+
 }

@@ -1,17 +1,24 @@
 package com.tour.tourapp.mvp.ui.fragment;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -31,7 +38,11 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.dl7.recycler.divider.DividerItemDecoration;
+import com.dl7.recycler.divider.RecyclerViewDivider;
+import com.dl7.recycler.helper.RecyclerViewHelper;
 import com.socks.library.KLog;
+import com.tour.tourapp.App;
 import com.tour.tourapp.ClusterOverlay;
 import com.tour.tourapp.R;
 import com.tour.tourapp.api.RetrofitManager;
@@ -44,6 +55,7 @@ import com.tour.tourapp.entity.RspGoodsBean;
 import com.tour.tourapp.entity.RspNearbyShopBean;
 import com.tour.tourapp.entity.RspShopAllGoodBean;
 import com.tour.tourapp.entity.ShopDetailBean;
+import com.tour.tourapp.mvp.adapter.RecommendGoodsAdapter;
 import com.tour.tourapp.mvp.ui.activity.GoodDetailActivity;
 import com.tour.tourapp.mvp.ui.activity.SearchActivity;
 import com.tour.tourapp.mvp.ui.activity.ShopAroundActivity;
@@ -72,6 +84,7 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
     @BindView(R.id.map)
     MapView mMapView;
     private ImageView close_popWin;
+    private RecyclerView recommed_goods;
     private LinearLayout ll_popWin;
     private TextView tv_shop_name;
     private TextView tv_shop_address;
@@ -83,8 +96,7 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
     //初始化地图控制器对象
     private AMap mAMap;
     //地图上 Marker 集合
-    List<Marker>   markList;
-
+    List<Marker> markList;
 
 
     private double latitude, longitude;
@@ -98,7 +110,8 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
     Activity mActivity;
     //标识，用于判断是否只显示一次定位信息和用户重新定位
     private boolean isFirstLoc = true;
-
+    RecommendGoodsAdapter recommendGoodsAdapter;
+    List<GoodsDetailBean> goodBeenTwo;
 
     @Override
     public void initInjector() {
@@ -112,6 +125,16 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
         init();
         initMap();
         initPop();
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+        //初始化 RecyclerView，多次初始化会影响  item和分割线之间 的距离
+        goodBeenTwo = new ArrayList<>();
+        RecyclerViewHelper.initRecyclerViewH(mActivity, recommed_goods,
+                true, recommendGoodsAdapter, 20, Color.WHITE);
+        recommendGoodsAdapter = new RecommendGoodsAdapter(mActivity, goodBeenTwo);
+        recommed_goods.setAdapter(recommendGoodsAdapter);
     }
 
 
@@ -161,9 +184,6 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
     }
 
 
-
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -190,8 +210,12 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
         mMapView.onDestroy();
-    }
 
+        if (popupWindow != null) {
+            popupWindow.dismiss();
+            popupWindow = null;
+        }
+    }
 
 
     //视图移动到定位的地点，和设置缩放级别
@@ -207,13 +231,19 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
 
     }
 
-    //给下方PopupWindow布局赋值
-    private void valueData(List<GoodsDetailBean> goodBeen, int index) {
-        if (!CheckDataIsEmpty.checkList(goodBeen)){
+    //给下方PopupWindow推荐商品布局GridView赋值
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void valueRecyclerView(List<GoodsDetailBean> goodBeen) {
+        if (!CheckDataIsEmpty.checkList(goodBeen)) {
 
+            goodBeenTwo.clear();
+            //推荐商品两个，暂时取 商品 前两个
+            goodBeenTwo.add(goodBeen.get(0));
+            goodBeenTwo.add(goodBeen.get(1));
+            // goodBeenTwo数据变更   recommendGoodsAdapter更新数据
+            recommendGoodsAdapter.notifyDataSetChanged();
+            openPopWindow();
         }
-
-        ImageLoader.loadFit(getContext(), "", close_popWin, R.mipmap.ic_launcher);
     }
 
 
@@ -237,7 +267,7 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
                         shops = rspNearbyShopBean.getBody().getShops();
 
                         //商铺数量>1，添加Maker聚合点
-                            if (!CheckDataIsEmpty.checkList(shops))
+                        if (!CheckDataIsEmpty.checkList(shops))
                             addMaker(shops);
                     }
                 });
@@ -258,20 +288,20 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
     }
 
 
-
     private void initPop() {
         popView = LayoutInflater.from(getContext()).inflate(R.layout.layout_pop_shop, null);
         tv_shop_name = (TextView) popView.findViewById(R.id.tv_shop_name);
         tv_shop_address = (TextView) popView.findViewById(R.id.tv_shop_add);
         ll_popWin = (LinearLayout) popView.findViewById(R.id.ll_popWin);
         close_popWin = (ImageView) popView.findViewById(R.id.close_popWin);
+        recommed_goods = (RecyclerView) popView.findViewById(R.id.recommed_goods);
         //设置弹出框的宽度和高度
         popupWindow = new PopupWindow(popView,
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setFocusable(true);// 取得焦点
         //注意  要是点击外部空白处弹框消息  那么必须给弹框设置一个背景色  不然是不起作用的
-//        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         //点击外部消失
         popupWindow.setOutsideTouchable(true);
         //设置可以点击
@@ -281,7 +311,7 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
         close_popWin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               popupWindow.dismiss();
+                popupWindow.dismiss();
             }
         });
 
@@ -306,13 +336,13 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
     @Override
     public boolean onMarkerClick(final Marker marker) {
 
-        if (!CheckDataIsEmpty.checkList(shops)&& !CheckDataIsEmpty.checkList(markList)){
+        if (!CheckDataIsEmpty.checkList(shops) && !CheckDataIsEmpty.checkList(markList)) {
             final int index = markList.indexOf(marker);
             ShopDetailBean shopDetailBean = shops.get(index);
             tv_shop_name.setText(marker.getTitle());
             tv_shop_address.setText(shopDetailBean.getShopsAdds());
             //根据商铺id，查询商铺的商品信息
-            RetrofitManager.getInstance(1).getGoodsByShopId(String.valueOf(shopDetailBean.getId()),"","3","1","1000")
+            RetrofitManager.getInstance(1).getGoodsByShopId(String.valueOf(shopDetailBean.getId()), "", "3", "1", "1000")
                     .compose(TransformUtils.<RspShopAllGoodBean>defaultSchedulers())
                     .subscribe(new Subscriber<RspShopAllGoodBean>() {
                         @Override
@@ -326,22 +356,20 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
 
                         @Override
                         public void onNext(RspShopAllGoodBean rspShopAllGoodBean) {
-                            KLog.d( rspShopAllGoodBean.toString());
-                            valueData(rspShopAllGoodBean.getBody().getGoods(),index);
+                            KLog.d(rspShopAllGoodBean.toString());
+                            valueRecyclerView(rspShopAllGoodBean.getBody().getGoods());
                         }
                     });
         }
-            openPopWindow();
+
 
         return false;
     }
 
 
-
-
     @Override
     public void onMyLocationChange(Location location) {
-        if (isFirstLoc){
+        if (isFirstLoc) {
             KLog.a(location.toString());
 
             locationMap(location.getLatitude(), location.getLongitude());
@@ -351,9 +379,6 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
         }
 
     }
-
-
-
 
 
 }

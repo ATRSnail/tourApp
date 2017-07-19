@@ -61,13 +61,13 @@ import rx.Subscriber;
 /**
  * 首页地图
  */
-
+@Deprecated
 public class MainFragment extends BaseLazyFragment implements ClusterClickListener, ClusterRender, LocationSource {
 
     //定义了一个地图view
     @BindView(R.id.map)
     MapView mMapView;
-    private ImageView img_shop;
+//    private ImageView img_shop;
     private TextView tv_shop_name;
     @BindView(R.id.img_around)
     ImageView img_around;
@@ -319,7 +319,7 @@ public class MainFragment extends BaseLazyFragment implements ClusterClickListen
 
     private void fillDate(String shopName, List<GoodsDetailBean> goodBeen) {
         tv_shop_name.setText(shopName);
-        ImageLoader.loadFit(getContext(), "", img_shop, R.mipmap.ic_launcher);
+//        ImageLoader.loadFit(getContext(), "", img_shop, R.mipmap.ic_launcher);
     }
 
     @Override
@@ -392,7 +392,7 @@ public class MainFragment extends BaseLazyFragment implements ClusterClickListen
     private void initPop() {
         popView = LayoutInflater.from(getContext()).inflate(R.layout.layout_pop_shop, null);
         tv_shop_name = (TextView) popView.findViewById(R.id.tv_shop_name);
-        img_shop = (ImageView) popView.findViewById(R.id.img_shop_1);
+//        img_shop = (ImageView) popView.findViewById(R.id.img_shop_1);
         //设置弹出框的宽度和高度
         popupWindow = new PopupWindow(popView,
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -406,12 +406,12 @@ public class MainFragment extends BaseLazyFragment implements ClusterClickListen
         popupWindow.setTouchable(true);
         //进入退出的动画
         popupWindow.setAnimationStyle(R.style.PopupAnimation);
-        img_shop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GoodDetailActivity.launch(mActivity, 9);
-            }
-        });
+//        img_shop.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                GoodDetailActivity.launch(mActivity, 9);
+//            }
+//        });
 
         tv_shop_name.setOnClickListener(new View.OnClickListener() {
             @Override

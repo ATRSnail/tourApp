@@ -7,7 +7,7 @@ package com.tour.tourapp.api;
 public final class ApiConstants {
 
     //线下
-    public static final String NETEAST_HOST = "http://172.16.10.15:9806/";
+    public static final String NETEAST_HOST = "http://172.16.10.15:9806";
     public static final String NETEAST_IMG_HOST = "http://172.16.10.15:9400/";
 
     //线上

@@ -13,6 +13,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import com.dl7.recycler.adapter.BaseQuickAdapter;
 import com.dl7.recycler.divider.DividerItemDecoration;
 import com.dl7.recycler.divider.MarginDecoration;
+import com.dl7.recycler.divider.RecyclerViewDivider;
 import com.dl7.recycler.listener.OnRequestDataListener;
 
 
@@ -76,6 +77,27 @@ public class RecyclerViewHelper {
         }
         view.setAdapter(adapter);
     }
+
+
+    /**
+     * 配置水平列表RecyclerView
+     *
+     * @param view
+     */
+    public static void initRecyclerViewH(Context context, RecyclerView view, boolean isDivided,
+                                         RecyclerView.Adapter adapter,int dividerWidth,int color) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        view.setLayoutManager(layoutManager);
+        view.setItemAnimator(new DefaultItemAnimator());
+        if (isDivided) {
+            view.addItemDecoration(new RecyclerViewDivider(context,LinearLayoutManager.HORIZONTAL
+            ,dividerWidth,color));
+        }
+        view.setAdapter(adapter);
+    }
+
+
 
     public static void initRecyclerViewH(Context context, RecyclerView view, RecyclerView.Adapter adapter) {
         initRecyclerViewH(context, view, false, adapter);

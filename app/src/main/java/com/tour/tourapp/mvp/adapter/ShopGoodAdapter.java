@@ -50,16 +50,16 @@ public class ShopGoodAdapter  extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CustomAdapter.ViewHolder holder =null;
+        ViewHolder holder =null;
         if (convertView==null){
-            holder = new CustomAdapter.ViewHolder();
+            holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.shopgood,null,false);
             holder.imageView = (ImageView) convertView.findViewById(R.id.good_icon);
             holder.name = (TextView) convertView.findViewById(R.id.good_name);
             holder.price = (TextView) convertView.findViewById(R.id.good_price);
             convertView.setTag(holder);
         }else {
-            holder = (CustomAdapter.ViewHolder) convertView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
         GoodsDetailBean item = data.get(position);
         holder.name.setText(item.getGoodsName());
