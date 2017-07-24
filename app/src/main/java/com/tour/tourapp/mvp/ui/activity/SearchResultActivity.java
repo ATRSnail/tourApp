@@ -106,7 +106,7 @@ public class SearchResultActivity extends BaseActivity implements OnRecyclerView
     }
 
     @Override
-    public void setAreaBeanList(List<ShopDetailBean> areaBeanList, @LoadNewsType.checker int loadType) {
+    public void setShopAroundList(List<ShopDetailBean> areaBeanList, @LoadNewsType.checker int loadType) {
         shopAroundAdapter.updateItems(areaBeanList);
     }
 }

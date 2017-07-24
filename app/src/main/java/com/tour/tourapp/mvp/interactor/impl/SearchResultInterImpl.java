@@ -28,7 +28,7 @@ public class SearchResultInterImpl implements SearchResultInter<RspNearbyShopBea
     @Override
     public Subscription loadNews(final RequestCallBack<RspNearbyShopBean> listener, String shopsName, String goodsName) {
 
-        RetrofitManager.getInstance(1).searchGoodsOrShop(shopsName,goodsName)
+        return  RetrofitManager.getInstance(1).searchGoodsOrShop(shopsName,goodsName)
                 .compose(TransformUtils.<RspNearbyShopBean>defaultSchedulers())
                 .subscribe(new Subscriber<RspNearbyShopBean>() {
                     @Override
@@ -49,6 +49,6 @@ public class SearchResultInterImpl implements SearchResultInter<RspNearbyShopBea
                         listener.success(rspNearbyShopBean);
                     }
                 });
-        return null;
+
     }
 }

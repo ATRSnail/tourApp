@@ -7,11 +7,11 @@
     <include layout="@layout/layout_cate_top" />
 
     <FrameLayout
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
         android:layout_weight="1">
 
         <android.support.v4.widget.SwipeRefreshLayout
@@ -21,12 +21,12 @@
 
 
             <GridView
-                android:scrollbars="none"
                 android:id="@+id/cate_gv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:horizontalSpacing="15dp"
                 android:numColumns="2"
+                android:scrollbars="none"
                 android:verticalSpacing="15dp" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </FrameLayout>

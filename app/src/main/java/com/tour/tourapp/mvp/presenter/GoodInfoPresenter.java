@@ -8,7 +8,7 @@ import com.tour.tourapp.mvp.presenter.base.BaseRefreshPresenter;
  * @create_date 2017/5/3
  */
 
-public interface GoodListPresenter extends BaseRefreshPresenter{
+public interface GoodInfoPresenter extends BaseRefreshPresenter{
 
     void setParams(int id);
 }

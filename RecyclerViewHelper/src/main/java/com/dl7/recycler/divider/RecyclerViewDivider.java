@@ -110,7 +110,10 @@ public class RecyclerViewDivider extends RecyclerView.ItemDecoration {
         //当前位置
         int itemPosition = layoutParams.getViewLayoutPosition();
         //ItemView数量
-        int childCount = parent.getAdapter().getItemCount();
+        int childCount = parent.getAdapter().getItemCount()-1;
+
+
+        //如果当前条目是最后一个条目，就不设置divider padding
         switch (mOrientation) {
             case BOTH_SET:
                 //获取Layout的相关参数
@@ -126,13 +129,12 @@ public class RecyclerViewDivider extends RecyclerView.ItemDecoration {
                 }
                 break;
             case HORIZONTAL_LIST:
-                childCount -= 1;
                 //水平布局右侧留Margin,如果是最后一列,就不要留Margin了
                 outRect.set(0, 0, (itemPosition != childCount) ? mDividerHeight : 0, 0);
                 break;
             case VERTICAL_LIST:
-                childCount -= 1;
                 //垂直布局底部留边，最后一行不留
+                Log.e("Tag","itemPosition>>>>>>"+itemPosition+"childCount>>>>>>"+childCount);
                 outRect.set(0, 0, 0, (itemPosition != childCount) ? mDividerHeight : 0);
                 break;
         }
@@ -247,7 +249,7 @@ public class RecyclerViewDivider extends RecyclerView.ItemDecoration {
         final int left = parent.getPaddingLeft();
         final int right = parent.getMeasuredWidth() - parent.getPaddingRight();
         //getChildCount()(ViewGroup.getChildCount) 返回的是显示层面上的“所包含的子 View 个数”。
-        final int childSize = parent.getChildCount();
+        final int childSize = parent.getChildCount()-1;//不绘制最后一个条目的分割线
         for (int i = 0; i < childSize; i++) {
             final View child = parent.getChildAt(i);
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
@@ -270,7 +272,7 @@ public class RecyclerViewDivider extends RecyclerView.ItemDecoration {
     private void drawHorizontal(Canvas canvas, RecyclerView parent) {
         final int top = parent.getPaddingTop();
         final int bottom = parent.getMeasuredHeight() - parent.getPaddingBottom();
-        final int childSize = parent.getChildCount();
+        final int childSize = parent.getChildCount()-1;//不绘制最后一个条目的分割线
         for (int i = 0; i < childSize; i++) {
             final View child = parent.getChildAt(i);
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();

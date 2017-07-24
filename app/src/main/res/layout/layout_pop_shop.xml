@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--PopupWindow 首页下方弹出布局 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -26,39 +26,39 @@
 
             <TextView
                 android:id="@+id/tv_shop_name"
+                style="@style/TitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:ellipsize="end"
                 android:lines="1"
                 android:maxEms="20"
-                android:text="商铺名称(只占一行内容，文字尽量控制在20字)"
-                android:textColor="@color/color_333333"
-                android:textSize="16sp" />
-
+                android:text="商铺名称(只占一行内容，文字尽量控制在20字)" />
 
 
             <TextView
                 android:id="@+id/tv_shop_add"
+                style="@style/AddressTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:drawableLeft="@mipmap/login_phone"
+                android:drawablePadding="10dp"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="某某路某某区00号"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp" />
+                android:text="某某路某某区00号" />
 
             <View
-                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/divide" />
-             <android.support.v7.widget.RecyclerView
-                 android:id="@+id/recommed_goods"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recommed_goods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
         </LinearLayout>

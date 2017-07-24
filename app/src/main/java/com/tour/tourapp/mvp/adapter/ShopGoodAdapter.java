@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tour.tourapp.R;
 import com.tour.tourapp.api.ApiConstants;
 import com.tour.tourapp.entity.GoodsDetailBean;
+import com.tour.tourapp.utils.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,14 +65,10 @@ public class ShopGoodAdapter  extends BaseAdapter {
         GoodsDetailBean item = data.get(position);
         holder.name.setText(item.getGoodsName());
         holder.price.setText(item.getPriceS()+"");
-        Glide.with(context)
-                .load(ApiConstants.NETEAST_HOST + item.getAtt().get(0).getAttUrl())
-                .asBitmap()
-                .format(DecodeFormat.PREFER_ARGB_8888)
-                .placeholder(R.mipmap.default_image)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(R.mipmap.load_fail)
-                .into(holder.imageView);
+
+        String attUrl = item.getAtt().get(0).getAttUrl();
+        ImageLoader.loadImage(context,attUrl,holder.imageView);
+
         return convertView;
     }
 

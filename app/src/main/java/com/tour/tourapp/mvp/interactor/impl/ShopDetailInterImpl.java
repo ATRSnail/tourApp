@@ -13,9 +13,7 @@ import rx.Subscriber;
 import rx.Subscription;
 
 /**
- * @author xch
- * @version 1.0
- * @create_date 2017/5/3
+ * 商铺 --- 所有商品
  */
 
 public class ShopDetailInterImpl implements ShopDetailInter<RspShopAllGoodBean> {
@@ -27,7 +25,7 @@ public class ShopDetailInterImpl implements ShopDetailInter<RspShopAllGoodBean> 
     @Override
     public Subscription loadNews(final RequestCallBack<RspShopAllGoodBean> listener, String id,String goodsType,String attType,String page,String size) {
 
-        RetrofitManager.getInstance(1).getGoodsByShopId(id,goodsType,attType,page,size)
+   return      RetrofitManager.getInstance(1).getGoodsByShopId(id,goodsType,attType,page,size)
                 .compose(TransformUtils.<RspShopAllGoodBean>defaultSchedulers())
                 .subscribe(new Subscriber<RspShopAllGoodBean>() {
                     @Override
@@ -48,6 +46,5 @@ public class ShopDetailInterImpl implements ShopDetailInter<RspShopAllGoodBean> 
                         listener.success(rspShopBean);
                     }
                 });
-        return null;
     }
 }

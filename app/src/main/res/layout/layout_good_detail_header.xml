@@ -1,108 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+
+    <ImageView
+        android:id="@+id/icon_gd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@mipmap/default_image" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_smaller">
+
+        <TextView
+            android:id="@+id/name_gd"
+            style="@style/GoodTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxEms="15"
+            android:maxLines="1"
+            tools:text="商品名称（文字尽量不超过限定数量）" />
 
         <ImageView
-            android:id="@+id/iv_good_detai_img"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:id="@+id/like_gd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/name_gd"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/name_gd"
+            android:layout_gravity="right"
             android:scaleType="fitXY"
-            android:src="@mipmap/productdemo"
-            android:visibility="visible" />
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/freight_gd"
+            style="@style/DistanceTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/name_gd"
+            android:layout_below="@id/name_gd"
+            android:layout_marginTop="@dimen/spacing_tinyer"
+            tools:text="运费：包邮" />
 
         <LinearLayout
-            android:id="@+id/ll_offset"
+            android:id="@+id/ll_gd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/spacing_smaller">
+            android:layout_alignLeft="@id/name_gd"
+            android:layout_below="@id/freight_gd"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
             <TextView
-                style="@style/blackTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="日本卡乐比Calbee Jagabee 薯条三兄弟 淡盐味" />
-
-            <TextView
-                style="@style/blackTextStyleSmall"
+                style="@style/colorPrimaryTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_tinyer"
-                android:text="90g/包" />
+                android:text="@string/money_icon" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/discount_gd"
+                style="@style/AddressTextStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_tinyer">
+                android:paddingLeft="5dp"
+                android:paddingRight="10dp"
+                android:textSize="22sp"
+                tools:text="789" />
 
-                <TextView
-                    style="@style/colorPrimaryTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="48元" />
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/spacing_tinyer">
-
-                    <TextView
-                        android:id="@+id/tv_good_detail_discount"
-                        style="@style/greyTextStyleSmaller"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/spacing_tinyer"
-                        android:paddingRight="@dimen/spacing_tinyer"
-                        android:text="159" />
-
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="0.5dp"
-                        android:layout_alignLeft="@+id/tv_good_detail_discount"
-                        android:layout_alignRight="@+id/tv_good_detail_discount"
-                        android:layout_centerVertical="true"
-                        android:background="@color/deep_transparent" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                style="@style/greyTextStyleSmaller"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_tinyer"
-                android:orientation="horizontal">
+                android:text="@string/money_icon" />
 
-                <TextView
-                    style="@style/greyTextStyleSmaller"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="快递：12.00" />
 
-                <TextView
-                    style="@style/greyTextStyleSmaller"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="1321人付款" />
-
-                <TextView
-                    style="@style/greyTextStyleSmaller"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="日本大阪" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/price_gd"
+                style="@style/greyTextStyleSmaller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/spacing_tinyer"
+                android:paddingRight="@dimen/spacing_tinyer"
+                tools:text="899" />
 
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_cccccc" />
 </LinearLayout>

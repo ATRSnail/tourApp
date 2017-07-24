@@ -101,7 +101,7 @@
     <dimen name="spacing_big">18dp</dimen>
     <dimen name="spacing_normal">14dp</dimen>
     <dimen name="spacing_small">12dp</dimen>
-    <dimen name="spacing_smaller">10dp</dimen>
+    <dimen name="spacing_smaller">15dp</dimen>
     <dimen name="spacing_smallest">8dp</dimen>
     <dimen name="spacing_tiny">6dp</dimen>
     <dimen name="spacing_tinyer">4dp</dimen>

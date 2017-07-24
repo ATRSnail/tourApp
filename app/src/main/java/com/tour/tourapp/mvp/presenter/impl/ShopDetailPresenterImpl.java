@@ -52,7 +52,7 @@ public class ShopDetailPresenterImpl extends BasePresenterImpl<ShopDetailView, R
         super.onError(errorMsg);
         if (mView != null) {
             int loadType = mIsRefresh ? LoadNewsType.TYPE_REFRESH_ERROR : LoadNewsType.TYPE_LOAD_MORE_ERROR;
-            mView.setAreaBeanList(null, loadType);
+            mView.setAllGoodList(null, loadType);
         }
     }
 
@@ -73,7 +73,7 @@ public class ShopDetailPresenterImpl extends BasePresenterImpl<ShopDetailView, R
         int loadType = mIsRefresh ? LoadNewsType.TYPE_REFRESH_SUCCESS : LoadNewsType.TYPE_LOAD_MORE_SUCCESS;
         pageNum++;
         if (mView != null) {
-            mView.setAreaBeanList(data.getBody(), loadType);
+            mView.setAllGoodList(data.getBody(), loadType);
             mView.hideProgress();
         }
     }

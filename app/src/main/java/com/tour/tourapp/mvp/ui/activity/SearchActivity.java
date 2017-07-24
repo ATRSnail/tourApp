@@ -20,6 +20,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
+/**
+ * 首页--搜索页面
+ */
 public class SearchActivity extends BaseActivity {
 
     @BindView(R.id.btn_search)

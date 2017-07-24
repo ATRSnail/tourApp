@@ -34,6 +34,19 @@ public class RecyclerViewHelper {
      * @param view
      */
     public static void initRecyclerViewV(Context context, RecyclerView view, boolean isDivided,
+                                         RecyclerView.Adapter adapter,int dividerWidth,int color) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        view.setLayoutManager(layoutManager);
+        view.setItemAnimator(new DefaultItemAnimator());
+        if (isDivided) {
+            view.addItemDecoration(new RecyclerViewDivider(context, LinearLayoutManager.VERTICAL
+                    , dividerWidth, color));
+        }
+        view.setAdapter(adapter);
+    }
+
+    public static void initRecyclerViewV(Context context, RecyclerView view, boolean isDivided,
                                          RecyclerView.Adapter adapter) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -41,7 +54,8 @@ public class RecyclerViewHelper {
         view.setLayoutManager(layoutManager);
         view.setItemAnimator(new DefaultItemAnimator());
         if (isDivided) {
-            view.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));
+            view.addItemDecoration(new RecyclerViewDivider(context, LinearLayoutManager.VERTICAL
+                   ));
         }
         view.setAdapter(adapter);
     }

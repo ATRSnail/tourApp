@@ -11,5 +11,5 @@ import com.tour.tourapp.entity.ShopAllGoodBean;
 
 public interface ShopDetailView extends BaseView{
 
-    void setAreaBeanList(ShopAllGoodBean shopAllGoodBean, @LoadNewsType.checker int loadType);
+    void setAllGoodList(ShopAllGoodBean shopAllGoodBean, @LoadNewsType.checker int loadType);
 }

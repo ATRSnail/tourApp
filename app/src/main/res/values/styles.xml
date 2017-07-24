@@ -109,4 +109,25 @@
 		<item name="android:textSize">@dimen/font_normal</item>
 		<item name="android:textColor">@color/colorPrimary</item>
 	</style>
+
+
+	<style name="TitleTextStyle">
+		<item name="android:textSize">18sp</item>
+		<item name="android:textColor">@color/color_333333</item>
+	</style>
+
+	<style name="AddressTextStyle">
+		<item name="android:textSize">16sp</item>
+		<item name="android:textColor">@color/colorPrimary</item>
+	</style>
+
+	<style name="GoodTextStyle">
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">@color/black</item>
+	</style>
+
+	<style name="DistanceTextStyle">
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">@color/grey_text_color_normal</item>
+	</style>
 </resources>

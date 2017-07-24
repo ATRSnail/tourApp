@@ -14,5 +14,5 @@ import java.util.List;
 
 public interface ShopAroundView extends BaseView{
 
-    void setAreaBeanList(List<ShopDetailBean> areaBeanList, @LoadNewsType.checker int loadType);
+    void setShopAroundList(List<ShopDetailBean> areaBeanList, @LoadNewsType.checker int loadType);
 }

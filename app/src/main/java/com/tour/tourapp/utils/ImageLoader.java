@@ -5,8 +5,12 @@ import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.tour.tourapp.R;
+import com.tour.tourapp.api.ApiConstants;
 
 import java.io.File;
 import java.util.concurrent.ExecutionException;
@@ -31,6 +35,23 @@ public class ImageLoader {
             Glide.with(context).load(url).fitCenter().dontAnimate().placeholder(defaultResId).into(view);
         } else {
             view.setImageResource(defaultResId);
+        }
+    }
+
+    public static void loadImage(Context context, String attUrl, ImageView view) {
+        String url = ApiConstants.NETEAST_HOST + attUrl;
+        if (PreferencesUtils.isShowImageAlways(context) || NetUtil.isWifiConnected(context)) {
+            view.setScaleType(ImageView.ScaleType.FIT_XY);
+            Glide.with(context)
+                    .load(url)
+                    .asBitmap()
+                    .format(DecodeFormat.PREFER_ARGB_8888)
+                    .placeholder(R.mipmap.default_image)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .error(R.mipmap.load_fail)
+                    .into(view);
+        } else {
+            view.setImageResource(R.mipmap.default_image);
         }
     }
 

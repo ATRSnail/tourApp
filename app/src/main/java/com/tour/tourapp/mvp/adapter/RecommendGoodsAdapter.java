@@ -18,6 +18,7 @@ import com.tour.tourapp.R;
 import com.tour.tourapp.api.ApiConstants;
 import com.tour.tourapp.entity.GoodsDetailBean;
 import com.tour.tourapp.utils.DensityUtil;
+import com.tour.tourapp.utils.ImageLoader;
 import com.tour.tourapp.utils.ScreenUtils;
 
 
@@ -44,23 +45,14 @@ public class RecommendGoodsAdapter extends BaseQuickAdapter<GoodsDetailBean> {
     @Override
     protected void convert(BaseViewHolder holder, GoodsDetailBean item) {
         ImageView imageView = holder.getView(R.id.img_recom);
-        String url = ApiConstants.NETEAST_HOST + item.getAtt().get(0).getAttUrl();
+        String attUrl = item.getAtt().get(0).getAttUrl();
 
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-        int width = (ScreenUtils.getScreenWidth(mContext)- DensityUtil.dip2px(mContext,30))/2;
-//        int height = width * params.height/params.width;
-//
-//        params.height = height;
+        int width = (ScreenUtils.getScreenWidth(mContext) - DensityUtil.dip2px(mContext, 30)) / 2;
         params.width = width;
         imageView.setLayoutParams(params);
+        ImageLoader.loadImage(mContext,attUrl,imageView);
 
-        Glide.with(mContext).load(url)
-                .asBitmap()
-                .format(DecodeFormat.PREFER_ARGB_8888)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.mipmap.default_image)
-                .error(R.mipmap.default_image)
-                .into(imageView);
         holder.setText(R.id.name_recomgoods, item.getGoodsName());
     }
 }

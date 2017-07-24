@@ -88,10 +88,12 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
     private LinearLayout ll_popWin;
     private TextView tv_shop_name;
     private TextView tv_shop_address;
+    //点击显示附近的商铺
     @BindView(R.id.img_around)
     ImageView img_around;
+    //点击跳转到搜索页面
     @BindView(R.id.img_search)
-    ImageView img_search;
+    LinearLayout img_search;
 
     //初始化地图控制器对象
     private AMap mAMap;
@@ -131,10 +133,10 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
     private void initRecyclerView() {
         //初始化 RecyclerView，多次初始化会影响  item和分割线之间 的距离
         goodBeenTwo = new ArrayList<>();
-        RecyclerViewHelper.initRecyclerViewH(mActivity, recommed_goods,
-                true, recommendGoodsAdapter, 20, Color.WHITE);
         recommendGoodsAdapter = new RecommendGoodsAdapter(mActivity, goodBeenTwo);
-        recommed_goods.setAdapter(recommendGoodsAdapter);
+        RecyclerViewHelper.initRecyclerViewH(mActivity, recommed_goods,
+                true, recommendGoodsAdapter, 20, Color.RED);
+
     }
 
 
@@ -232,18 +234,26 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
     }
 
     //给下方PopupWindow推荐商品布局GridView赋值
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void valueRecyclerView(List<GoodsDetailBean> goodBeen) {
-        if (!CheckDataIsEmpty.checkList(goodBeen)) {
 
-            goodBeenTwo.clear();
-            //推荐商品两个，暂时取 商品 前两个
-            goodBeenTwo.add(goodBeen.get(0));
-            goodBeenTwo.add(goodBeen.get(1));
-            // goodBeenTwo数据变更   recommendGoodsAdapter更新数据
-            recommendGoodsAdapter.notifyDataSetChanged();
-            openPopWindow();
+        if (!CheckDataIsEmpty.checkList(goodBeen)){
+
+            if (goodBeenTwo.size()>=2){
+                goodBeenTwo.clear();
+                //推荐商品两个，暂时取 商品 前两个
+                goodBeenTwo.add(goodBeen.get(0));
+                goodBeenTwo.add(goodBeen.get(1));
+            }else {
+                goodBeenTwo.clear();
+                goodBeenTwo.add(goodBeen.get(0));
+                goodBeenTwo.add(goodBeen.get(0));
+            }
+
         }
+
+        // goodBeenTwo数据变更   recommendGoodsAdapter更新数据
+        recommendGoodsAdapter.updateItems(goodBeenTwo);
+        openPopWindow();
     }
 
 

@@ -46,7 +46,6 @@ import com.tour.tourapp.mvp.ui.activity.GoodDetailActivity;
 import com.tour.tourapp.mvp.ui.activity.SearchActivity;
 import com.tour.tourapp.mvp.ui.activity.ShopAroundActivity;
 import com.tour.tourapp.utils.ImageLoader;
-import com.tour.tourapp.utils.SHA1Utils;
 import com.tour.tourapp.utils.TransformUtils;
 import com.tour.tourapp.utils.UT;
 

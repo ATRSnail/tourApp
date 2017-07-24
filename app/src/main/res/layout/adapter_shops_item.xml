@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/shop_title"
-
+            style="@style/TitleTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -24,24 +24,23 @@
             android:maxLines="2"
             tools:text="商铺名称(两行地方文字文字大概不超过20个字)" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/background_color" />
+        <TextView
+            android:id="@+id/shop_address"
+            style="@style/AddressTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:drawableLeft="@mipmap/login_phone"
+            android:drawablePadding="10dp"
+            tools:text="某某路某某区00号" />
 
         <TextView
-            android:id="@+id/shop_time"
+            android:id="@+id/shop_distance"
             style="@style/DistanceTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/login_phone"
-            android:drawablePadding="10dp"
-            android:ellipsize="end"
-            android:maxEms="24"
-            android:maxLines="2"
-            tools:text="创建于2008年创建于字数不要超过两行大致24个字" />
+            android:layout_marginTop="10dp"
+            tools:text="距离某处000米" />
     </LinearLayout>
 
     <ImageView

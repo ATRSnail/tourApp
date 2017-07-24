@@ -26,6 +26,7 @@ import com.tour.tourapp.mvp.adapter.ShopGoodAdapter;
 import com.tour.tourapp.mvp.presenter.impl.CatePresenterImpl;
 import com.tour.tourapp.mvp.ui.activity.GoodDetailActivity;
 import com.tour.tourapp.mvp.view.base.CateView;
+import com.tour.tourapp.utils.InitUtils;
 import com.tour.tourapp.utils.NetUtil;
 import com.tour.tourapp.utils.ScreenUtils;
 import com.tour.tourapp.utils.UT;
@@ -73,7 +74,7 @@ public class CateFragment extends BaseFragment implements BaseQuickAdapter.OnRec
 
     @Override
     public void initViews(View view) {
-        initSwipeRefreshLayout();
+        InitUtils.initSwipRefresh(swipe_refresh,this);
         initGridView();
         initPresenter();
         initPopupWindow();
@@ -97,10 +98,7 @@ public class CateFragment extends BaseFragment implements BaseQuickAdapter.OnRec
     }
 
 
-    private void initSwipeRefreshLayout() {
-        swipe_refresh.setOnRefreshListener(this);
-        swipe_refresh.setColorSchemeColors(getActivity().getResources().getIntArray(R.array.gplus_colors));
-    }
+
 
     private void initPresenter() {
         mPresenter = mGoodListPreter;

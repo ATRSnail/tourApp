@@ -50,7 +50,7 @@ public class ShopAroundPresenterImpl extends BasePresenterImpl<ShopAroundView,Rs
         super.onError(errorMsg);
         if (mView != null) {
             int loadType = mIsRefresh ? LoadNewsType.TYPE_REFRESH_ERROR : LoadNewsType.TYPE_LOAD_MORE_ERROR;
-            mView.setAreaBeanList(null, loadType);
+            mView.setShopAroundList(null, loadType);
         }
     }
 
@@ -68,7 +68,7 @@ public class ShopAroundPresenterImpl extends BasePresenterImpl<ShopAroundView,Rs
         int loadType = mIsRefresh ? LoadNewsType.TYPE_REFRESH_SUCCESS : LoadNewsType.TYPE_LOAD_MORE_SUCCESS;
         pageNum++;
         if (mView != null) {
-            mView.setAreaBeanList(data.getBody().getShops(), loadType);
+            mView.setShopAroundList(data.getBody().getShops(), loadType);
             mView.hideProgress();
         }
     }

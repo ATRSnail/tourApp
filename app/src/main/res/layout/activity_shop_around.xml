@@ -8,15 +8,15 @@
 
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+        android:id="@+id/sr_sa"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/news_rv"
+            android:id="@+id/rv_sa"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/white"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>

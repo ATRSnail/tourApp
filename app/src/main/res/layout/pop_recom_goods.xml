@@ -25,5 +25,5 @@
                 android:lines="1"
                 android:maxEms="10"
                 tools:text="商品名称（不超过10个字）"
-                android:textSize="14sp" />
+                style="@style/GoodTextStyle" />
 </LinearLayout>

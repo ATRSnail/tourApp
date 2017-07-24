@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/shop_address"
+        style="@style/GoodTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:drawableLeft="@mipmap/login_phone"
+        android:drawablePadding="10dp"
+        android:drawableRight="@mipmap/ic_setting_arrow"
+        android:gravity="center_vertical"
+        tools:text="北京市海淀区某某某路00号" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@mipmap/list_view_divider" />
+
+    <TextView
+        android:id="@+id/shop_phone"
+        style="@style/GoodTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:drawableLeft="@mipmap/login_phone"
+        android:drawablePadding="10dp"
+        android:drawableRight="@mipmap/ic_setting_arrow"
+        android:gravity="center_vertical"
+        tools:text="010-8080808080" />
+
+
+</LinearLayout>
