@@ -6,16 +6,16 @@
 
     <!--实现BaseActivity的通用顶部栏-->
     <include layout="@layout/top_title_bar" android:visibility="gone" />
-    <include layout="@layout/layout_toolbar_search2" />
+    <include layout="@layout/layout_search_result" />
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+        android:id="@+id/sr_sr"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/news_rv"
+            android:id="@+id/rv_sr"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white" />

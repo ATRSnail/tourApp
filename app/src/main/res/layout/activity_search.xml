@@ -5,20 +5,16 @@
     android:orientation="vertical">
 
     <!--实现BaseActivity的通用顶部栏-->
-    <include layout="@layout/top_title_bar"  android:visibility="gone"/>
-    <include layout="@layout/layout_toolbar_search" />
+    <include
+        layout="@layout/top_title_bar"
+        android:visibility="gone" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+  <com.tour.tourapp.utils.Search_View
+      android:id="@+id/search_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+  </com.tour.tourapp.utils.Search_View>
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/news_rv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white" />
-
-    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

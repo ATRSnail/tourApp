@@ -18,9 +18,9 @@ public class CheckDataIsEmpty {
     }
 
     public static boolean checkString(String string) {
-        if ("".equals(string) && !TextUtils.isEmpty(string))
-            return false;
-        return true;
+        if ("".equals(string) || TextUtils.isEmpty(string))
+            return true;
+        return false;
     }
 
 }

@@ -1,12 +1,12 @@
 package com.tour.tourapp.api;
 
-import android.text.TextUtils;
 import android.util.SparseArray;
 
 import com.socks.library.KLog;
 import com.tour.tourapp.App;
 import com.tour.tourapp.entity.RspCartBean;
 import com.tour.tourapp.entity.RspGoodDetailBean;
+import com.tour.tourapp.entity.RspSearchBean;
 import com.tour.tourapp.entity.RspShopAllGoodBean;
 import com.tour.tourapp.entity.RspGoodsBean;
 import com.tour.tourapp.entity.RspOrderBean;
@@ -209,7 +209,7 @@ public class RetrofitManager {
     public Observable<RspShopDetail> shopDetail(String id, String attType) {
         Map<String, String> map = new HashMap<>();
         map.put("id", id);
-        if (!TextUtils.isEmpty(attType) && "".equals(attType))
+        if (!CheckDataIsEmpty.checkString(attType))
             map.put("attType", attType);
         KLog.a(map.toString());
         return mNewsService.shopDetail(map);
@@ -290,13 +290,15 @@ public class RetrofitManager {
      *                  注意两参数传一个即可
      * @return
      */
-    public Observable<RspNearbyShopBean> searchGoodsOrShop(String shopsName, String goodsName) {
+    public Observable<RspSearchBean> searchGoodsOrShop(String shopsName, String goodsName) {
         //注意两参数传一个即可
         Map<String, String> map = new HashMap<>();
-        if (!TextUtils.isEmpty(shopsName) && "".equals(shopsName))
+        if (!CheckDataIsEmpty.checkString(shopsName))
             map.put("shopsName", shopsName);
-        if (!TextUtils.isEmpty(goodsName) && "".equals(goodsName))
+
+        if (!CheckDataIsEmpty.checkString(goodsName))
             map.put("goodsName", goodsName);
+
         KLog.a(map.toString());
         return mNewsService.searchGoodsOrShop(map);
     }
@@ -333,11 +335,11 @@ public class RetrofitManager {
      */
     public Observable<Rspclassify> classify_First(String goodsType, String orderBy, String parent) {
         Map<String, String> map = new HashMap<>();
-        if (!TextUtils.isEmpty(goodsType) && !"".equals(goodsType))
+        if (!CheckDataIsEmpty.checkString(goodsType))
             map.put("goodsType", goodsType);
-        if (!TextUtils.isEmpty(orderBy) && !"".equals(orderBy))
+        if (!CheckDataIsEmpty.checkString(orderBy))
             map.put("orderBy", orderBy);
-        if (!TextUtils.isEmpty(parent) && !"".equals(parent))
+        if (!CheckDataIsEmpty.checkString(parent))
             map.put("parent", parent);
         KLog.a(map.toString());
         return mNewsService.classify_First(map);

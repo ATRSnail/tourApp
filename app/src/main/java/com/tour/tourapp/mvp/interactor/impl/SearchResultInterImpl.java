@@ -3,6 +3,7 @@ package com.tour.tourapp.mvp.interactor.impl;
 import com.socks.library.KLog;
 import com.tour.tourapp.api.RetrofitManager;
 import com.tour.tourapp.entity.RspNearbyShopBean;
+import com.tour.tourapp.entity.RspSearchBean;
 import com.tour.tourapp.mvp.interactor.SearchResultInter;
 import com.tour.tourapp.mvp.listener.RequestCallBack;
 import com.tour.tourapp.utils.MyUtils;
@@ -19,18 +20,18 @@ import rx.Subscription;
  * @create_date 2017/5/3
  */
 
-public class SearchResultInterImpl implements SearchResultInter<RspNearbyShopBean> {
+public class SearchResultInterImpl implements SearchResultInter<RspSearchBean> {
 
     @Inject
     public SearchResultInterImpl() {
     }
 
     @Override
-    public Subscription loadNews(final RequestCallBack<RspNearbyShopBean> listener, String shopsName, String goodsName) {
+    public Subscription loadNews(final RequestCallBack<RspSearchBean> listener, String shopsName, String goodsName) {
 
         return  RetrofitManager.getInstance(1).searchGoodsOrShop(shopsName,goodsName)
-                .compose(TransformUtils.<RspNearbyShopBean>defaultSchedulers())
-                .subscribe(new Subscriber<RspNearbyShopBean>() {
+                .compose(TransformUtils.<RspSearchBean>defaultSchedulers())
+                .subscribe(new Subscriber<RspSearchBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -43,10 +44,8 @@ public class SearchResultInterImpl implements SearchResultInter<RspNearbyShopBea
                     }
 
                     @Override
-                    public void onNext(RspNearbyShopBean rspNearbyShopBean) {
-
-                        KLog.d(rspNearbyShopBean.toString());
-                        listener.success(rspNearbyShopBean);
+                    public void onNext(RspSearchBean rspSearchBean) {
+                        listener.success(rspSearchBean);
                     }
                 });
 

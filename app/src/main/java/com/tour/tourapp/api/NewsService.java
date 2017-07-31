@@ -5,6 +5,7 @@ import com.tour.tourapp.entity.RspGoodDetailBean;
 import com.tour.tourapp.entity.RspGoodsBean;
 import com.tour.tourapp.entity.RspOrderBean;
 import com.tour.tourapp.entity.RspNearbyShopBean;
+import com.tour.tourapp.entity.RspSearchBean;
 import com.tour.tourapp.entity.RspShopAllGoodBean;
 import com.tour.tourapp.entity.RspShopDetail;
 import com.tour.tourapp.entity.RspUserAddBean;
@@ -96,7 +97,7 @@ public interface NewsService {
 
     @FormUrlEncoded
     @POST(SEARCH_GOODS_SHOP)
-    Observable<RspNearbyShopBean> searchGoodsOrShop(@FieldMap Map<String, String> map);
+    Observable<RspSearchBean> searchGoodsOrShop(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
     @POST(Goods_Detail)

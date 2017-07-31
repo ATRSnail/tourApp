@@ -5,32 +5,30 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.tour.tourapp.R;
+import com.tour.tourapp.utils.CheckDataIsEmpty;
 import com.tour.tourapp.utils.UT;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
+import static com.tour.tourapp.utils.Search_View.*;
 
 /**
  * 首页--搜索页面
  */
-public class SearchActivity extends BaseActivity {
+public class SearchActivity extends BaseActivity implements OnClickListener, AdapterView.OnItemClickListener
+        , TextView.OnEditorActionListener {
 
-    @BindView(R.id.btn_search)
-    Button btn_search;
-    @BindView(R.id.tv_search_cate)
-    TextView tv_search_cate;
-    @BindView(R.id.et_search_content)
-    EditText et_search_content;
 
     private String shopsName, goodsName;
     private PopupWindow popupWindow;
@@ -40,6 +38,7 @@ public class SearchActivity extends BaseActivity {
 
     @Inject
     Activity mActivity;
+
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, SearchActivity.class);
@@ -59,30 +58,20 @@ public class SearchActivity extends BaseActivity {
     @Override
     public void initViews() {
         initPop();
-        btn_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                etContent = et_search_content.getText().toString().trim();
-                if (TextUtils.isEmpty(etContent)){
-                    UT.show("内容不能为空");
-                    return;
-                }
-                if (tv_search_cate.getText().equals("商铺")){
-                    shopsName = etContent;
-                    goodsName = "";
-                }else {
-                    shopsName = "";
-                    goodsName = etContent;
-                }
-                SearchResultActivity.launch(mActivity, shopsName, goodsName);
-            }
-        });
-        tv_search_cate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openPopWindow();
-            }
-        });
+        mSearchEdit.setOnEditorActionListener(this);
+        cate_search.setOnClickListener(this);
+        listView.setOnItemClickListener(this);
+    }
+
+
+    public void onSearchFinish(View v) {
+        switch (v.getId()) {
+            case R.id.back_search:
+                finish();
+            case R.id.cancel_search:
+                finish();
+                break;
+        }
     }
 
     private void initPop() {
@@ -106,14 +95,14 @@ public class SearchActivity extends BaseActivity {
         tv_shop_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tv_search_cate.setText("店铺");
+                cate_search.setText("店铺");
                 popupWindow.dismiss();
             }
         });
         tv_good_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tv_search_cate.setText("商品");
+                cate_search.setText("商品");
                 popupWindow.dismiss();
             }
         });
@@ -124,6 +113,57 @@ public class SearchActivity extends BaseActivity {
      */
     public void openPopWindow() {
         //从底部显示
-        popupWindow.showAsDropDown(tv_search_cate, 0, 10);
+        popupWindow.showAsDropDown(cate_search, 0, 10);
+    }
+
+    @Override
+    public void onClick(View v) {
+        openPopWindow();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //获取到用户点击列表里的文字,并自动填充到搜索框内
+        TextView textView = (TextView) view;
+        String name = textView.getText().toString();
+        mSearchEdit.setText(name);
+
+        // 当用户点击搜索历史里的字段后,立即查询关键字
+        jump();
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH ) {
+            jump();
+        }
+        return false;
+    }
+
+    private void jump() {
+        etContent = mSearchEdit.getText().toString().trim();
+        if (CheckDataIsEmpty.checkString(etContent)) {
+            UT.show("请输入关键字");
+            return ;
+        }
+
+        // 隐藏键盘
+        ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+                getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+
+        // 按完搜索键后将当前查询的关键字保存起来,如果该关键字已经存在就不执行保存
+        boolean hasData = dbUtils.hasData(etContent);
+        if (!hasData) {
+            dbUtils.insertData(etContent);
+        }
+        if (cate_search.getText().equals("商铺")) {
+            shopsName = etContent;
+            goodsName = "";
+        } else {
+            shopsName = "";
+            goodsName = etContent;
+        }
+        SearchResultActivity.launch(SearchActivity.this, shopsName, goodsName);
     }
 }

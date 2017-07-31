@@ -45,10 +45,6 @@ public class ShopAroundAdapter extends BaseQuickAdapter<ShopDetailBean> {
         ImageLoader.loadImage(mContext,attUrl,imageView);
 
 
-//        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-//        int width = (ScreenUtils.getScreenWidth(mContext) - DensityUtil.dip2px(mContext, 30)) / 2;
-//        params.width = width;
-//        imageView.setLayoutParams(params);
     }
 
 }
