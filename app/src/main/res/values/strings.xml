@@ -28,5 +28,6 @@
     <string name="recommand_goods">推荐商品</string>
     <string name="all_goods">全部商品</string>
     <string name="clear_history">清除历史记录</string>
+    <string name="shop">店铺</string>
 
 </resources>

@@ -29,8 +29,8 @@
         android:supportsRtl="true"
         android:theme="@style/BaseTheme"
         tools:replace="icon">
-        <!--<activity android:name=".mvp.ui.activity.MainTabActivity">-->
-        <activity android:name=".mvp.ui.activity.SearchActivity">
+        <activity android:name=".mvp.ui.activity.MainTabActivity">
+        <!--<activity android:name=".mvp.ui.activity.SearchActivity" >-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,7 +48,7 @@
         <activity android:name=".mvp.ui.activity.ShopDetailActivity" />
         <activity android:name=".mvp.ui.activity.ShopAroundActivity" />
         <activity android:name=".mvp.ui.activity.GoodDetailActivity" />
-        <!--<activity android:name=".mvp.ui.activity.SearchActivity" />-->
+        <activity android:name=".mvp.ui.activity.SearchActivity" />
         <activity android:name=".mvp.ui.activity.SearchResultActivity" />
         <activity android:name=".mvp.ui.activity.LoginActivity" />
         <activity android:name=".mvp.ui.activity.RegisterActivity"/>

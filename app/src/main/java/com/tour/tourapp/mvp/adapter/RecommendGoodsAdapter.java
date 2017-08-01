@@ -17,6 +17,7 @@ import com.socks.library.KLog;
 import com.tour.tourapp.R;
 import com.tour.tourapp.api.ApiConstants;
 import com.tour.tourapp.entity.GoodsDetailBean;
+import com.tour.tourapp.utils.CheckDataIsEmpty;
 import com.tour.tourapp.utils.DensityUtil;
 import com.tour.tourapp.utils.ImageLoader;
 import com.tour.tourapp.utils.ScreenUtils;
@@ -44,15 +45,16 @@ public class RecommendGoodsAdapter extends BaseQuickAdapter<GoodsDetailBean> {
 
     @Override
     protected void convert(BaseViewHolder holder, GoodsDetailBean item) {
-        ImageView imageView = holder.getView(R.id.img_recom);
-        String attUrl = item.getAtt().get(0).getAttUrl();
 
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-        int width = (ScreenUtils.getScreenWidth(mContext) - DensityUtil.dip2px(mContext, 30)) / 2;
-        params.width = width;
-        imageView.setLayoutParams(params);
-        ImageLoader.loadImage(mContext,attUrl,imageView);
-
+        if (!CheckDataIsEmpty.checkList(item.getAtt())){
+            ImageView imageView = holder.getView(R.id.img_recom);
+            String attUrl = item.getAtt().get(0).getAttUrl();
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+            int width = (ScreenUtils.getScreenWidth(mContext) - DensityUtil.dip2px(mContext, 30)) / 2;
+            params.width = width;
+            imageView.setLayoutParams(params);
+            ImageLoader.loadImage(mContext,attUrl,imageView);
+        }
         holder.setText(R.id.name_recomgoods, item.getGoodsName());
     }
 }

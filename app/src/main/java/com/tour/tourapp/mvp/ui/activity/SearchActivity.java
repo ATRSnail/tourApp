@@ -3,7 +3,9 @@ package com.tour.tourapp.mvp.ui.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -124,7 +126,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener, Ada
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //获取到用户点击列表里的文字,并自动填充到搜索框内
-        TextView textView = (TextView) view;
+        TextView textView = (TextView) view.findViewById(R.id.tv_history);
         String name = textView.getText().toString();
         mSearchEdit.setText(name);
 
@@ -157,7 +159,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener, Ada
         if (!hasData) {
             dbUtils.insertData(etContent);
         }
-        if (cate_search.getText().equals("商铺")) {
+        if (cate_search.getText().equals("店铺")) {
             shopsName = etContent;
             goodsName = "";
         } else {

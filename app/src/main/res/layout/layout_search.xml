@@ -38,7 +38,7 @@
                 android:layout_marginLeft="6dp"
                 android:drawableRight="@mipmap/serch_icon_sanjiao"
                 android:gravity="center"
-                android:text="商铺" />
+                android:text="@string/shop" />
 
             <EditText
                 android:id="@+id/edit_search"
@@ -57,7 +57,7 @@
             android:clickable="true"
             android:onClick="onSearchFinish"
             android:padding="10dp"
-            android:text="取消"
+            android:text="@string/cancel"
             android:textColor="@color/white" />
 
 

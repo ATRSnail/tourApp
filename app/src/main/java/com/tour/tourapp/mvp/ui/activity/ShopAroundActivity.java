@@ -69,10 +69,10 @@ public class ShopAroundActivity extends BaseActivity implements OnRecyclerViewIt
 
     @Override
     public void initInjector() {
-//        latitude = getIntent().getDoubleExtra(LATITUDE_KEY, 0);
-//        longitude = getIntent().getDoubleExtra(LONGITUDE_KEY, 0);
-        latitude = 39.993521;
-        longitude = 116.377415;
+        latitude = getIntent().getDoubleExtra(LATITUDE_KEY, 0);
+        longitude = getIntent().getDoubleExtra(LONGITUDE_KEY, 0);
+//        latitude = 39.993521;
+//        longitude = 116.377415;
         mActivityComponent.inject(this);
     }
 

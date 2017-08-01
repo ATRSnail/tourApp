@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tour.tourapp.R;
 import com.tour.tourapp.api.ApiConstants;
 import com.tour.tourapp.entity.GoodsDetailBean;
+import com.tour.tourapp.utils.CheckDataIsEmpty;
 import com.tour.tourapp.utils.ImageLoader;
 
 import java.util.ArrayList;
@@ -66,8 +67,11 @@ public class ShopGoodAdapter  extends BaseAdapter {
         holder.name.setText(item.getGoodsName());
         holder.price.setText(item.getPriceS()+"");
 
-        String attUrl = item.getAtt().get(0).getAttUrl();
-        ImageLoader.loadImage(context,attUrl,holder.imageView);
+        if (!CheckDataIsEmpty.checkList(item.getAtt())){
+            String attUrl = item.getAtt().get(0).getAttUrl();
+            ImageLoader.loadImage(context,attUrl,holder.imageView);
+        }
+
 
         return convertView;
     }

@@ -56,7 +56,6 @@ import com.tour.tourapp.entity.RspNearbyShopBean;
 import com.tour.tourapp.entity.RspShopAllGoodBean;
 import com.tour.tourapp.entity.ShopDetailBean;
 import com.tour.tourapp.mvp.adapter.RecommendGoodsAdapter;
-import com.tour.tourapp.mvp.ui.activity.GoodDetailActivity;
 import com.tour.tourapp.mvp.ui.activity.SearchActivity;
 import com.tour.tourapp.mvp.ui.activity.ShopAroundActivity;
 import com.tour.tourapp.utils.CheckDataIsEmpty;
@@ -270,6 +269,7 @@ public class MainTestFragment extends BaseLazyFragment implements AMap.OnMarkerC
                     @Override
                     public void onError(Throwable e) {
                         KLog.e(e.toString());
+
                     }
 
                     @Override

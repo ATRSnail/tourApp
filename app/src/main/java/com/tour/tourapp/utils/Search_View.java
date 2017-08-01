@@ -120,8 +120,8 @@ public class Search_View extends LinearLayout {
 
     public static void showData(Cursor cursor) {
         // 创建adapter适配器对象,装入模糊搜索的结果,展示搜索历史
-        adapter = new SimpleCursorAdapter(context, android.R.layout.simple_list_item_1, cursor, new String[]{"name"},
-                new int[]{android.R.id.text1}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        adapter = new SimpleCursorAdapter(context,R.layout.layout_search_item, cursor, new String[]{"name"},
+                new int[]{R.id.tv_history}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         // 设置适配器
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

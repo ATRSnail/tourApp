@@ -17,6 +17,7 @@ import com.dl7.recycler.adapter.BaseViewHolder;
 import com.tour.tourapp.R;
 import com.tour.tourapp.api.ApiConstants;
 import com.tour.tourapp.entity.GoodsDetailBean;
+import com.tour.tourapp.utils.CheckDataIsEmpty;
 import com.tour.tourapp.utils.ImageLoader;
 
 import java.util.ArrayList;
@@ -46,10 +47,12 @@ public class ShopGoodAdapter2 extends BaseQuickAdapter<GoodsDetailBean> {
         holder.setText(R.id.good_name, item.getGoodsName());
         holder.setText(R.id.good_price, item.getPriceS() + "");
 
-        ImageView imageView = holder.getView(R.id.good_icon);
+        if (!CheckDataIsEmpty.checkList(item.getAtt())){
+            ImageView imageView = holder.getView(R.id.good_icon);
+            String attUrl = item.getAtt().get(0).getAttUrl();
+            ImageLoader.loadImage(mContext,attUrl,imageView);
+        }
 
-        String attUrl = item.getAtt().get(0).getAttUrl();
-        ImageLoader.loadImage(mContext,attUrl,imageView);
     }
 
 }

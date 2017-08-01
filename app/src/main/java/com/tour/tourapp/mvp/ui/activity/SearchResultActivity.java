@@ -128,7 +128,7 @@ public class SearchResultActivity extends BaseActivity implements OnRecyclerView
             goodsList = new ArrayList<>();
             shopGoodAdapter = new ShopGoodAdapter2(mActivity, goodsList);
             shopGoodAdapter.setOnItemClickListener(this);
-            RecyclerViewHelper.initRecyclerViewG(this, rv_sr, true, shopAroundAdapter, 2, R.dimen.spacing_smaller);
+            RecyclerViewHelper.initRecyclerViewG(this, rv_sr, true, shopGoodAdapter, 2, R.dimen.spacing_smaller);
         }
     }
 
