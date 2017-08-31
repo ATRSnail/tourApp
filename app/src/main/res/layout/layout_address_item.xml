@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
+
+        <TextView
+            android:id="@+id/name_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="用户姓名"
+            android:textColor="@color/color_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/phone_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:maxLength="11"
+            android:text="13800000000"
+            android:textColor="@color/color_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/site_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_address"
+            android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="北京市XXX区XXX路00号"
+            android:textColor="@color/color_333333"
+            android:textSize="15sp" />
+
+        <View
+            android:id="@+id/line_address"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/site_address"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/color_cccccc" />
+
+        <CheckBox
+            android:id="@+id/default_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line_address"
+            android:layout_marginBottom="15dp"
+            android:button="@drawable/check_box_bg"
+            android:paddingLeft="10dp"
+            android:text="默认地址"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/default_address"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/edit_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:drawableLeft="@mipmap/login_phone"
+                android:drawablePadding="5dp"
+                android:text="编辑"
+                android:textColor="@color/color_666666"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/delete_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:clickable="true"
+                android:drawableLeft="@mipmap/login_phone"
+                android:drawablePadding="5dp"
+                android:text="删除"
+                android:textColor="@color/color_666666"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>

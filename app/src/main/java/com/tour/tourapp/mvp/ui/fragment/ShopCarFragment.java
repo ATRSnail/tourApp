@@ -14,6 +14,7 @@ import com.tour.tourapp.R;
 import com.tour.tourapp.entity.GroupInfo;
 import com.tour.tourapp.entity.ProductInfo;
 import com.tour.tourapp.mvp.adapter.ShopcartExpandableListViewAdapter;
+import com.tour.tourapp.mvp.ui.activity.OrderActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +28,8 @@ import butterknife.BindView;
 /**
  * 购物车---碎片
  */
-public class ShopCarFragment extends BaseLazyFragment implements ShopcartExpandableListViewAdapter.CheckInterface, ShopcartExpandableListViewAdapter.ModifyCountInterface, View.OnClickListener {
+public class ShopCarFragment extends BaseLazyFragment implements ShopcartExpandableListViewAdapter.CheckInterface,
+        ShopcartExpandableListViewAdapter.ModifyCountInterface, View.OnClickListener {
     @BindView(R.id.exListView)
     ExpandableListView exListView;
     @BindView(R.id.all_chekbox)
@@ -62,12 +64,14 @@ public class ShopCarFragment extends BaseLazyFragment implements ShopcartExpanda
     @Override
     public void initViews(View view) {
         context = getContext();
+
         virtualData();
         initEvents();
     }
 
 
     private void initEvents() {
+        tv_total_price.setText("合计:  ¥" + totalPrice+"元");
         selva = new ShopcartExpandableListViewAdapter(groups, children, getContext());
         selva.setCheckInterface(this);// 关键步骤1,设置复选框接口
         selva.setModifyCountInterface(this);// 关键步骤2,设置数量增减接口
@@ -126,6 +130,7 @@ public class ShopCarFragment extends BaseLazyFragment implements ShopcartExpanda
                 alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        OrderActivity.launch(context);
                         return;
                     }
                 });
@@ -279,6 +284,7 @@ public class ShopCarFragment extends BaseLazyFragment implements ShopcartExpanda
             }
         }
         selva.notifyDataSetChanged();
+        calculate();
     }
 
     /**
@@ -301,7 +307,7 @@ public class ShopCarFragment extends BaseLazyFragment implements ShopcartExpanda
                 }
             }
         }
-        tv_total_price.setText("￥" + totalPrice);
+        tv_total_price.setText("合计:  ¥" + totalPrice+"元");
         tv_go_to_pay.setText("去支付(" + totalCount + ")");
     }
 

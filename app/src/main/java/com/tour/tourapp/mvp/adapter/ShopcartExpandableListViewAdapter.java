@@ -20,8 +20,6 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 	private List<GroupInfo> groups;
 	private Map<String, List<ProductInfo>> children;
 	private Context context;
-	//HashMap<Integer, View> groupMap = new HashMap<Integer, View>();
-	//HashMap<Integer, View> childrenMap = new HashMap<Integer, View>();
 	private CheckInterface checkInterface;
 	private ModifyCountInterface modifyCountInterface;
 
@@ -108,11 +106,9 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 			convertView = View.inflate(context, R.layout.item_shopcart_group, null);
 			gholder.cb_check = (CheckBox) convertView.findViewById(R.id.determine_chekbox);
 			gholder.tv_group_name = (TextView) convertView.findViewById(R.id.tv_source_name);
-			//groupMap.put(groupPosition, convertView);
 			 convertView.setTag(gholder);
 		} else
 		{
-			// convertView = groupMap.get(groupPosition);
 			gholder = (GroupHolder) convertView.getTag();
 		}
 		final GroupInfo group = (GroupInfo) getGroup(groupPosition);
@@ -150,11 +146,9 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 			cholder.iv_increase = (TextView) convertView.findViewById(R.id.tv_add);
 			cholder.iv_decrease = (TextView) convertView.findViewById(R.id.tv_reduce);
 			cholder.tv_count = (TextView) convertView.findViewById(R.id.tv_num);
-			// childrenMap.put(groupPosition, convertView);
 			convertView.setTag(cholder);
 		} else
 		{
-			// convertView = childrenMap.get(groupPosition);
 			cholder = (ChildHolder) convertView.getTag();
 		}
 		final ProductInfo product = (ProductInfo) getChild(groupPosition, childPosition);
@@ -163,7 +157,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 		{
 
 			cholder.tv_product_desc.setText(product.getDesc());
-			cholder.tv_price.setText("￥" + product.getPrice() + "");
+			cholder.tv_price.setText("¥" + product.getPrice() + "");
 			cholder.tv_count.setText(product.getCount() + "");
 			cholder.cb_check.setChecked(product.isChoosed());
 			cholder.cb_check.setOnClickListener(new OnClickListener()

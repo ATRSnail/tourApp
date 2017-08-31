@@ -7,13 +7,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.tour.tourapp.R;
 import com.tour.tourapp.mvp.ui.fragment.CateFragment;
-import com.tour.tourapp.mvp.ui.fragment.MainFragment;
-import com.tour.tourapp.mvp.ui.fragment.MainTestFragment;
-import com.tour.tourapp.mvp.ui.fragment.MemberFragment;
+import com.tour.tourapp.mvp.ui.fragment.MineFragment;
 import com.tour.tourapp.mvp.ui.fragment.ShopCarFragment;
 import com.tour.tourapp.utils.UT;
 
@@ -80,7 +77,7 @@ public class MainTabActivity extends CheckPermissionsActivity {
 
     private void initData() {
         currIndex = 0;
-        fragmentTags = new ArrayList<>(Arrays.asList("HomeFragment", "ImFragment", "InterestFragment", "MemberFragment"));
+        fragmentTags = new ArrayList<>(Arrays.asList("HomeFragment", "ImFragment", "InterestFragment", "MineFragment"));
         chageIndex(0);
     }
 
@@ -123,9 +120,7 @@ public class MainTabActivity extends CheckPermissionsActivity {
                 hideToolBar();
                 break;
             case 2:
-                if (mToolbar != null)
-                    mToolbar.setVisibility(View.VISIBLE);
-                title = "购物车";
+                hideToolBar();
                 break;
             case 3:
                 hideToolBar();
@@ -160,15 +155,15 @@ public class MainTabActivity extends CheckPermissionsActivity {
     private Fragment instantFragment(int currIndex) {
         switch (currIndex) {
             case 0:
-                return new MainTestFragment();
+//                return new MainTestFragment();
 //                return new MainFragment();
-//            case 0:return new MemberFragment();
+            return new ShopCarFragment();
             case 1:
                 return new CateFragment();
             case 2:
                 return new ShopCarFragment();
             case 3:
-                return new MemberFragment();
+                return new MineFragment();
             default:
                 return null;
         }

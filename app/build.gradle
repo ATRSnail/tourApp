@@ -57,6 +57,11 @@ dependencies {
     compile "com.android.support:support-v4:${rootProject.ext.support}"
     compile "com.android.support:design:${rootProject.ext.support}"
     compile project(':RecyclerViewHelper')
+    //    compile 'com.android.support:support-v4:25.3.1'
+
+    //ForListView通用的 Adapter
+
+
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:converter-jackson:2.1.0'
@@ -74,14 +79,9 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'cn.pedant.sweetalert:library:1.3'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-//    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.zhy:base-adapter:3.0.3'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
     apt 'com.google.dagger:dagger-compiler:2.2'
     provided 'org.glassfish:javax.annotation:10.0-b28'
-
-     //ForListView通用的 Adapter
-       compile 'com.zhy:base-adapter:3.0.3'
-
-
 }

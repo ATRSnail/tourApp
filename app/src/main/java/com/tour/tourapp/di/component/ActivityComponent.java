@@ -6,7 +6,10 @@ import android.content.Context;
 import com.tour.tourapp.di.module.ActivityModule;
 import com.tour.tourapp.di.scope.ContextLife;
 import com.tour.tourapp.di.scope.PerActivity;
+import com.tour.tourapp.mvp.ui.activity.AddressActivity;
 import com.tour.tourapp.mvp.ui.activity.GoodDetailActivity;
+import com.tour.tourapp.mvp.ui.activity.OrderActivity;
+import com.tour.tourapp.mvp.ui.activity.PayActivity;
 import com.tour.tourapp.mvp.ui.activity.SearchActivity;
 import com.tour.tourapp.mvp.ui.activity.SearchResultActivity;
 import com.tour.tourapp.mvp.ui.activity.ShopAroundActivity;
@@ -41,4 +44,10 @@ public interface ActivityComponent {
     void inject(SearchActivity searchActivity);
 
     void inject(GoodDetailActivity goodDetailActivity);
+
+    void inject(OrderActivity orderActivity);
+
+    void inject(PayActivity payActivity);
+
+    void inject(AddressActivity addressActivity);
 }

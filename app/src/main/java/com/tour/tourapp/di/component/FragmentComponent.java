@@ -9,7 +9,7 @@ import com.tour.tourapp.di.scope.PerFragment;
 import com.tour.tourapp.mvp.ui.fragment.CateFragment;
 import com.tour.tourapp.mvp.ui.fragment.MainFragment;
 import com.tour.tourapp.mvp.ui.fragment.MainTestFragment;
-import com.tour.tourapp.mvp.ui.fragment.MemberFragment;
+import com.tour.tourapp.mvp.ui.fragment.MineFragment;
 import com.tour.tourapp.mvp.ui.fragment.ShopCarFragment;
 
 import dagger.Component;
@@ -36,7 +36,7 @@ public interface FragmentComponent {
 
     void inject(CateFragment cateFragment);
 
-    void inject(MemberFragment memberFragment);
+    void inject(MineFragment mineFragment);
 
     void inject(ShopCarFragment shopCarFragment);
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:clickable="true"
     android:id="@+id/toolbar_top"
-    android:layout_height="50dp"
+    android:layout_height="30dp"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
     android:background="@color/colorPrimary"
